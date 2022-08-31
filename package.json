@@ -1,0 +1,44 @@
+{
+  "name": "coderbox",
+  "version": "1.0.0",
+  "description": "基于electron的跨平台的工具集",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build-dist:linux": "electron-builder -l",
+    "build-dist:win": "electron-builder -w"
+  },
+  "build": {
+    "appId": "com.lizl6.coderbox",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "asar": true,
+    "directories": {
+      "output": "./dist"
+    },
+    "linux": {
+      "target": [
+        "appimage"
+      ]
+    },
+    "win": {
+      "icon": "./src/logo.png",
+      "target": [
+        "nsis"
+      ]
+    }
+  },
+  "keywords": [
+    "coderbox",
+    "加密",
+    "编码"
+  ],
+  "author": "lizl6",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^20.1.0"
+  },
+  "dependencies": {
+    "vue": "^3.2.38",
+    "vue-router": "^4.1.5"
+  }
+}
