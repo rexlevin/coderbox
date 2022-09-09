@@ -4,9 +4,17 @@
 
 # 功能/计划
 
-- [ ] 随即串/密码生成器
+- [x] 随即串/密码生成器
 
-- [ ] 编码/加密：base64编码/解码
+- [ ] navtive和ascii互转
+
+- [ ] native和utf-8互转
+
+- [ ] AES/DES加解密
+
+- [ ] MD5、SHA加密
+
+- [ ] base64编码/解码
 
 # 开发
 
@@ -22,6 +30,13 @@ npm i -g electron-builder
 npm run build-dist:linux
 # win环境下打包
 npm run build-dist:win
+```
+
+Bootstrap5终于不再需要jquery了，可以和Vue一起用：
+
+```bash
+npm i -D electron webpack webpack-cli css-loader style-loader html-webpack-plugin
+npm i vue vue-router bootstrap @popperjs/core
 ```
 
 # 截图

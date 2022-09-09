@@ -2,6 +2,8 @@ const { app, BrowserWindow, Menu, Tray, ipcMain } = require('electron')
 const path = require('path')
 const package = require('./package.json')
 
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+
 let win;
 
 app.whenReady().then(() => {
@@ -16,10 +18,10 @@ app.on('window-all-closed', () => {
 const createWindow = () => {
     Menu.setApplicationMenu(null);
     win = new BrowserWindow({
-        width: 1000,
-        height: 700,
-        minWidth: 1000,
-        minHeight: 700,
+        width: 1300,
+        height: 800,
+        minWidth: 1200,
+        minHeight: 800,
         icon: path.join(__dirname, './src/logo.png'),
         webPreferences: {
             preload: path.join(__dirname, './src/preload.js'),

@@ -6,19 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>coderbox</title>
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <div id="app" class="frame_page">
-        <div class="frame_header">
-            <ul>
-                <li><a href="#">编码/加密</a></li>
-                <li><a href="#">随机数/密码生成器</a></li>
-            </ul>
-        </div>
-        <div class="frame_content"></div>
-        <div class="frame_footer"></div>
+    <div id="app" class="h-100" style="overflow:hidden;">
+        <nav class="navbar navbar-expand-sm position-absolute" style="height:50px;">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">编码/加密</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Base64编码/解码</a>
+                            <a href="#" class="dropdown-item">ASCii编码</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" @click="to('pwd')" class="nav-link">随机数/密码生成器</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="content" class="h-100" style="padding-top:50px; margin:0;"></div>
     </div>
-    <script src="../node_modules/vue/dist/vue.global.prod.js" charset="utf-8"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../node_modules/vue/dist/vue.global.prod.js"></script>
     <script src="./index.js"></script>
 </body>
 </html>

@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<div class="container-fluid" id="app" style="margin:0;">
+    <form role="form">
+        <div class="row pt-4 align-items-center">
+            <div class="col-1"></div>
+            <div class="col-2 text-end">生成数量</div>
+            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.genCount"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-2 align-items-center">
+            <div class="col-1"></div>
+            <div class="col-2 text-end">长度</div>
+            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMin"></div>-
+            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMax"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-2 align-items-center">
+            <div class="col-1"></div>
+            <div class="col-2 text-end">使用字符集</div>
+            <div class="col-1">
+                <label for="checkNum">
+                    <input type="checkbox" v-model="formPwd.checkNum" id="checkNum">&nbsp;数字
+                </label>
+            </div>
+            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictNum"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-2 align-items-center">
+            <div class="col-3"></div>
+            <div class="col-1">
+                <input type="checkbox" v-model="formPwd.checkLower" id="checkLower">&nbsp;<label  class="form-check-label" for="checkLower">小写字母</label>
+            </div>
+            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictLower"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-2 align-items-center">
+            <div class="col-3"></div>
+            <div class="col-1">
+                <input type="checkbox" v-model="formPwd.checkCapital" id="checkCapital">&nbsp;<label  class="form-check-label" for="checkCapital">大写字母</label>
+            </div>
+            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictCapital"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-2 align-items-center">
+            <div class="col-3"></div>
+            <div class="col-1">
+                <input type="checkbox" v-model="formPwd.checkSymbol" id="checkSymbol">&nbsp;<label  class="form-check-label" for="checkSymbol">特殊符号</label>
+            </div>
+            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictSymbol"></div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-2 align-items-center">
+            <div class="col-3"></div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" @click="genKey">&nbsp;生&nbsp;&nbsp;成&nbsp;</button>
+            </div>
+        </div>
+        <div class="row mt-2 align-items-start">
+            <div class="col-1"></div>
+            <div class="col-2 text-end">结果</div>
+            <div class="col-8"><textarea class="form-control" style="resize:none" v-model="formPwd.result" cols="30" rows="15"></textarea></div>
+            <div class="col"></div>
+        </div>
+    </form>
+</div>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script>
+const app = {
+    data() {
+        return {
+            formPwd: {
+                genCount: 5,
+                lengthMin: 16,
+                lengthMax: 20,
+                dictNum: '23456789',
+                dictLower: 'abdefghijmnqrty',
+                dictCapital: 'ABDEFGHJLMNQRTY',
+                dictSymbol: '@#$%&',
+                checkNum: true,
+                checkLower: true,
+                checkCapital: true,
+                checkSymbol: true,
+                result: ''
+            }
+        }
+    },
+    methods: {
+        genKey() {
+            let dict = this.formPwd.dictCapital + this.formPwd.dictLower + this.formPwd.dictNum + this.formPwd.dictSymbol;
+// /^(?![A-Za-z0-9]+$)(?![a-z0-9_!@#$%^&*()+.]+$)(?![A-Za-z_!@#$%^&*()+.]+$)(?![A-Z0-9_!@#$%^&*()+.]+$)[a-zA-Z0-9_!@#$%^&*()+.]{8,}$/
+            let regex = '(?![' + this.formPwd.dictCapital + this.formPwd.dictLower + this.formPwd.dictNum + ']+$)(?![' + this.formPwd.dictLower + this.formPwd.dictNum + this.formPwd.dictSymbol + ']+$)(?![' + this.formPwd.dictCapital + this.formPwd.dictLower + this.formPwd.dictSymbol + ']+$)(?![' + this.formPwd.dictCapital + this.formPwd.dictNum + this.formPwd.dictSymbol + ']+$)[' + this.formPwd.dictCapital + this.formPwd.dictLower + this.formPwd.dictNum + this.formPwd.dictSymbol + ']{' + this.formPwd.lengthMin + ',' + this.formPwd.lengthMax + '}';
+            let count = 0, list = [];
+            while(true){
+                let len = Math.round(Math.random() * (this.formPwd.lengthMin - this.formPwd.lengthMax) + this.formPwd.lengthMax);
+                let result = '';
+                while(result.length < len) {
+                    result += dict.charAt(Math.floor(Math.random() * dict.length))
+                }
+                // console.info('==========%s===========%s', result, ((new RegExp(regex)).test(result)) );
+                if((new RegExp(regex)).test(result)) {
+                    list.push(result)
+                    count++;
+                }
+                if(count == this.formPwd.genCount) {
+                    break;
+                }
+            }
+            let r = '';
+            for(let s of list) {
+                r += s + '\r\n';
+            }
+            this.formPwd.result = r;
+        }
+    }
+}
+Vue.createApp(app).mount('#app');
+</script>
