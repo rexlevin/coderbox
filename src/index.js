@@ -3,8 +3,18 @@ const app = {
         return {
             routes: [
                 {
+                    name: 'welcome',
+                    path: './component/welcome.html',
+                    state: 0
+                },
+                {
                     name: 'pwd',
                     path: './component/pwd.html',
+                    state: 0
+                },
+                {
+                    name: 'ascii',
+                    path: './component/ascii.html',
                     state: 0
                 }
             ],
@@ -28,7 +38,7 @@ const app = {
         window.api.getTitle('title', (v) => {
             document.title = v;
         });
-        // document.getElementById('content').innerHTML = '<object type="text/html" data="./pwd/pwd.html" width="100%" height="600px"></object>';
+        document.getElementById('content').innerHTML = '<object type="text/html" data="./component/welcome.html" width="100%" height="600px"></object>';
     },
     methods: {
         to(name) {

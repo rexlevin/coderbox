@@ -18,7 +18,7 @@ app.on('window-all-closed', () => {
 const createWindow = () => {
     Menu.setApplicationMenu(null);
     win = new BrowserWindow({
-        width: 1300,
+        width: 1200,
         height: 800,
         minWidth: 1200,
         minHeight: 800,
