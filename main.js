@@ -18,10 +18,10 @@ app.on('window-all-closed', () => {
 const createWindow = () => {
     Menu.setApplicationMenu(null);
     win = new BrowserWindow({
-        width: 1200,
-        height: 800,
-        minWidth: 1200,
-        minHeight: 800,
+        width: 1000,
+        height: 700,
+        minWidth: 1000,
+        minHeight: 700,
         icon: path.join(__dirname, './src/logo.png'),
         webPreferences: {
             preload: path.join(__dirname, './src/preload.js'),

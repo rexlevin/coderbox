@@ -4,18 +4,18 @@
     <div class="card bg-light text-gray">
         <div class="card-head text-muted">随机数/密码生成</div>
       </div>
-    <form role="form">
+    <form role="form" class="needs-validation">
         <div class="row pt-4 align-items-center">
             <!-- <div class="col-1"></div> -->
             <div class="col-2 text-end">生成数量</div>
-            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.genCount"></div>
+            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.genCount" @input="checkGenCount($event)"></div>
             <div class="col"></div>
         </div>
         <div class="row mt-2 align-items-center">
             <!-- <div class="col-1"></div> -->
             <div class="col-2 text-end">长度</div>
-            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMin"></div>-
-            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMax"></div>
+            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMin" @input="checkLenMin($event)"></div>-
+            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMax" @input="checkLenMax($event)"></div>
             <div class="col"></div>
         </div>
         <div class="row mt-2 align-items-center">
@@ -26,7 +26,7 @@
                     <input type="checkbox" v-model="formPwd.checkNum" id="checkNum">&nbsp;数字
                 </label>
             </div>
-            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictNum"></div>
+            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictNum" @input="checkVal($event, 'num')"></div>
             <div class="col"></div>
         </div>
         <div class="row mt-2 align-items-center">
@@ -34,7 +34,7 @@
             <div class="col-1 text-nowrap">
                 <input type="checkbox" v-model="formPwd.checkLower" id="checkLower">&nbsp;<label  class="form-check-label" for="checkLower">小写字母</label>
             </div>
-            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictLower"></div>
+            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictLower" @input="checkVal($event, 'lower')"></div>
             <div class="col"></div>
         </div>
         <div class="row mt-2 align-items-center">
@@ -42,7 +42,7 @@
             <div class="col-1 text-nowrap">
                 <input type="checkbox" v-model="formPwd.checkCapital" id="checkCapital">&nbsp;<label  class="form-check-label" for="checkCapital">大写字母</label>
             </div>
-            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictCapital"></div>
+            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictCapital" @input="checkVal($event, 'capital')"></div>
             <div class="col"></div>
         </div>
         <div class="row mt-2 align-items-center">
@@ -50,7 +50,7 @@
             <div class="col-1 text-nowrap">
                 <input type="checkbox" v-model="formPwd.checkSymbol" id="checkSymbol">&nbsp;<label  class="form-check-label" for="checkSymbol">特殊符号</label>
             </div>
-            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictSymbol"></div>
+            <div class="col-4"><input type="text" class="form-control" v-model="formPwd.dictSymbol" @input="checkVal($event, 'symbol')"></div>
             <div class="col"></div>
         </div>
         <div class="row mt-2 align-items-center">
@@ -62,7 +62,7 @@
         <div class="row mt-2 align-items-start">
             <!-- <div class="col-1"></div> -->
             <div class="col-2 text-end">结果</div>
-            <div class="col-8"><textarea class="form-control" style="resize:none" v-model="formPwd.result" cols="30" rows="10"></textarea></div>
+            <div class="col-9"><textarea class="form-control" style="resize:none" v-model="formPwd.result" cols="30" rows="10"></textarea></div>
             <div class="col"></div>
         </div>
     </form>
@@ -85,28 +85,157 @@ const app = {
                 checkLower: true,
                 checkCapital: true,
                 checkSymbol: true,
+                num: {
+                    dict: '23456789',
+                    check: true
+                },
+                lower: {
+                    dict: 'abdefghijmnqrty',
+                    check: true
+                },
+                capital : {
+                    dict: 'ABDEFGHJLMNQRTY',
+                    check: true
+                },
+                symbol: {
+                    dict: '@#$%&',
+                    check: true
+                },
                 result: ''
             }
         }
     },
     methods: {
+        checkGenCount(e) {
+            if(e.target.value < 4)
+                this.formPwd.genCount = 4;
+        },
+        checkLenMin(e) {
+            if(e.target.value < 4)
+                this.formPwd.lengthMin = 4;
+        },
+        checkLenMax(e) {
+            if(e.target.value < this.formPwd.lengthMin)
+                this.formPwd.lengthMax = this.formPwd.lengthMin;
+        },
+        checkVal(e, n) {
+            console.info(n + '====' + e.target.value)
+            e.target.value = quchong(e.target.value);
+
+            switch (n) {
+                case 'num':
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '')
+                    break;
+                case 'lower':
+                    e.target.value = e.target.value.replace(/[^a-z]/g, '')
+                    break;
+                case 'capital':
+                    e.target.value = e.target.value.replace(/[^A-Z]/g, '')
+                    break;
+                case 'symbol':
+                    e.target.value = e.target.value.replace(/[~!@#$%^&*()_+{}[]\<\>]/g, '')
+                default:
+                    break;
+            }
+
+            if(e.target.value == '') {
+                switch (n) {
+                    case 'num':
+                        this.formPwd.checkNum = false;
+                        break;
+                    case 'lower':
+                        this.formPwd.checkLower = false;
+                        break;
+                    case 'capital':
+                        this.formPwd.checkCapital = false;
+                        break;
+                    case 'symbol':
+                        this.formPwd.checkSymbol = false;
+                    default:
+                        break;
+                }
+            }
+            // if(e.target.value != '') {
+            //     switch (n) {
+            //         case 'num':
+            //             this.formPwd.checkNum = true;
+            //             break;
+            //         case 'lower':
+            //             this.formPwd.checkLower = true;
+            //             break;
+            //         case 'capital':
+            //             this.formPwd.checkCapital = true;
+            //             break;
+            //         case 'symbol':
+            //             this.formPwd.checkSymbol = true;
+            //         default:
+            //             break;
+            //     }
+            // }
+        },
         genKey() {
-            let dict = this.formPwd.dictCapital + this.formPwd.dictLower + this.formPwd.dictNum + this.formPwd.dictSymbol;
-// /^(?![A-Za-z0-9]+$)(?![a-z0-9_!@#$%^&*()+.]+$)(?![A-Za-z_!@#$%^&*()+.]+$)(?![A-Z0-9_!@#$%^&*()+.]+$)[a-zA-Z0-9_!@#$%^&*()+.]{8,}$/
-            let regex = '(?![' + this.formPwd.dictCapital + this.formPwd.dictLower + this.formPwd.dictNum + ']+$)(?![' + this.formPwd.dictLower + this.formPwd.dictNum + this.formPwd.dictSymbol + ']+$)(?![' + this.formPwd.dictCapital + this.formPwd.dictLower + this.formPwd.dictSymbol + ']+$)(?![' + this.formPwd.dictCapital + this.formPwd.dictNum + this.formPwd.dictSymbol + ']+$)[' + this.formPwd.dictCapital + this.formPwd.dictLower + this.formPwd.dictNum + this.formPwd.dictSymbol + ']{' + this.formPwd.lengthMin + ',' + this.formPwd.lengthMax + '}';
+            this.formPwd.result = '';
+            if(this.formPwd.lengthMin > this.formPwd.lengthMax) return;
+
+            let countCheck = 0, lenFrom = 0, lenTo = 0;
+            if(this.formPwd.checkNum) countCheck++;
+            if(this.formPwd.checkLower) countCheck++;
+            if(this.formPwd.checkCapital) countCheck++;
+            if(this.formPwd.checkSymbol) countCheck++;
+            if(countCheck > this.formPwd.lengthMax) {
+                alert('长度过小');
+                return;
+            }
+            if(countCheck >= this.formPwd.lengthMin && countCheck <= this.formPwd.lengthMax) {
+                lenFrom = countCheck, lenTo = this.formPwd.lengthMax;
+            }
+            if(countCheck < this.formPwd.lengthMin) {
+                lenFrom = this.formPwd.lengthMin, lenTo = this.formPwd.lengthMax;
+            }
+
+            let strNum = this.formPwd.checkNum ? this.formPwd.dictNum : '';
+            let strLower = this.formPwd.checkLower ? this.formPwd.dictLower : '';
+            let strCapital = this.formPwd.checkCapital ? this.formPwd.dictCapital : '';
+            let strSymbol = this.formPwd.checkSymbol ? this.formPwd.dictSymbol : '';
+
+            let dict = strNum + strLower + strCapital + strSymbol;
+            console.info('当前字典================%s', dict);
+
+            let regexNum = '[' + this.formPwd.dictNum + ']';
+            let regexLower = '[' + this.formPwd.dictLower + ']';
+            let regexCapital = '[' + this.formPwd.dictCapital + ']';
+            let regexSymbol = '[' + this.formPwd.dictSymbol + ']';
+
+            console.info(this.formPwd.checkNum + '==' + this.formPwd.checkLower + '==' + this.formPwd.checkCapital + '==' + this.formPwd.checkSymbol)
+
             let count = 0, list = [];
-            while(true){
+            while(true) {
                 let len = Math.round(Math.random() * (this.formPwd.lengthMin - this.formPwd.lengthMax) + this.formPwd.lengthMax);
                 let result = '';
                 while(result.length < len) {
                     result += dict.charAt(Math.floor(Math.random() * dict.length))
                 }
-                // console.info('==========%s===========%s', result, ((new RegExp(regex)).test(result)) );
-                if((new RegExp(regex)).test(result)) {
-                    list.push(result)
-                    count++;
+                // console.info('B================%s', result);
+                if(this.formPwd.checkNum && !(new RegExp(regexNum)).test(result)) {
+                    console.error(this.formPwd.checkNum + '===no number');
+                    continue;
                 }
-                if(count == this.formPwd.genCount) {
+                if(this.formPwd.checkLower && !(new RegExp(regexLower)).test(result)) {
+                    console.error(this.formPwd.checkLower + '===no lowercase');
+                    continue;
+                }
+                if(this.formPwd.checkCapital && !(new RegExp(regexCapital)).test(result)) {
+                    console.error(this.formPwd.checkCapital + '===no capital');
+                    continue;
+                }
+                if(this.formPwd.checkSymbol && !(new RegExp(regexSymbol)).test(result)) {
+                    console.error(this.formPwd.checkSymbol + '===no sysmbol');
+                    continue;
+                }
+                console.info('A================%s', result);
+                list.push(result);
+                count++;
+                if(count >= this.formPwd.genCount) {
                     break;
                 }
             }
@@ -115,8 +244,40 @@ const app = {
                 r += s + '\r\n';
             }
             this.formPwd.result = r;
+
+            // let count = 0, list = [];
+            // while(true){
+            //     let len = Math.round(Math.random() * (this.formPwd.lengthMin - this.formPwd.lengthMax) + this.formPwd.lengthMax);
+            //     let result = '';
+            //     while(result.length < len) {
+            //         result += dict.charAt(Math.floor(Math.random() * dict.length))
+            //     }
+            //     console.info('==========%s===========%s', result, ((new RegExp(regex)).test(result)) );
+            //     if((new RegExp(regex)).test(result)) {
+            //         list.push(result)
+            //         count++;
+            //     }
+            //     if(count == this.formPwd.genCount) {
+            //         break;
+            //     }
+            // }
+            // let r = '';
+            // for(let s of list) {
+            //     r += s + '\r\n';
+            // }
+            // this.formPwd.result = r;
         }
     }
 }
 Vue.createApp(app).mount('#app');
+
+function quchong(str){
+    let newStr="";
+    for(let i = 0; i < str.length; i++) {
+        if(newStr.indexOf(str[i]) == -1) {
+            newStr += str[i];
+        }
+    }
+    return newStr;
+}
 </script>
