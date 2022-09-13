@@ -16,6 +16,11 @@ const app = {
                     name: 'ascii',
                     path: './component/ascii.html',
                     state: 0
+                },
+                {
+                    name: 'utf8',
+                    path: './component/utf8.html',
+                    state: 0
                 }
             ],
             dataPwd: {

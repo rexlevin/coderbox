@@ -6,8 +6,7 @@
     </div>
     <div class="row pt-2">
         <div class="col-1 text-end">中文：</div>
-        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strNative" cols="30"
-                rows="10"></textarea></div>
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strNative" cols="30" rows="10"></textarea></div>
     </div>
     <div class="row mt-3">
         <div class="col-1"></div>
@@ -18,8 +17,7 @@
     </div>
     <div class="row mt-3">
         <div class="col-1 text-end">ASCii：</div>
-        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strAscii" cols="30"
-                rows="10">{{strAscii}}</textarea></div>
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strAscii" cols="30" rows="10"></textarea></div>
     </div>
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -85,9 +83,7 @@ function toChar(str) {
         code <<= 4;
         code += cc;
     }
-
     if (code < 0xff) return str;
-
     return String.fromCharCode(code);
 }
 

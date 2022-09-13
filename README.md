@@ -8,7 +8,7 @@
 
 - [x] 中文/ASCii互转
 
-- [ ] 中文/UTF-8互转
+- [x] 中文/UTF-8互转
 
 - [ ] AES/DES加解密
 
@@ -50,6 +50,14 @@ npm run build-dist:win
 
 # 截图
 
+## 中文/ASCii编码
+
 ![image-20220913152703258](https://imgbd.r-xnoro.com//image-20220913152703258.png)
+
+## 中文/UTF-8编码
+
+![image-20220913162817293](https://imgbd.r-xnoro.com//image-20220913162817293.png)
+
+## 随机数/密码生成器
 
 ![image-20220913152551500](https://imgbd.r-xnoro.com//image-20220913152551500.png)

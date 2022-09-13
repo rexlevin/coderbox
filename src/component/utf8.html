@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<div class="container-fluid" id="app">
+    <div class="card bg-light text-gray">
+        <div class="card-head text-muted">中文/UTF-8编码互转</div>
+    </div>
+    <div class="row pt-2">
+        <div class="col-1 text-end">中文：</div>
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strNative" cols="30" rows="10"></textarea></div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-1"></div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" @click="n2u">中文转UTF-8编码⇩</button>
+            <button type="button" class="btn btn-primary" style="margin-left:15px;" @click="u2n">UTF-8编码转中文⇧</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-1 text-end text-nowrap">UTF-8编码：</div>
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strUTF8" cols="30" rows="10"></textarea></div>
+    </div>
+</div>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script>
+const app = {
+    data() {
+        return {
+            strNative: '',
+            strUTF8: ''
+        }
+    },
+    methods: {
+        n2u() {
+            if(this.strNative == '') return;
+            this.strUTF8 = this.strNative.replace(/[^\u0000-\u00FF]/g, ($0) => {
+                return escape($0).replace(/(%u)(\w{4})/gi, "&#x$2;");
+            });
+        },
+        u2n() {
+            if(this.strUTF8 == '') return;
+            this.strNative = unescape(this.strUTF8.replace(/&#x/g, '%u').replace(/;/g, ''));
+        }
+    }
+}
+Vue.createApp(app).mount('#app');
+</script>
