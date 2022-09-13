@@ -1,6 +1,6 @@
 {
   "name": "coderbox",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "基于electron的跨平台的程序员小工具集",
   "main": "main.js",
   "scripts": {
@@ -30,7 +30,8 @@
   "keywords": [
     "coderbox",
     "加密",
-    "编码"
+    "编码",
+    "base64"
   ],
   "author": "lizl6",
   "license": "Apache-2.0",
@@ -40,6 +41,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.0",
+    "crypto-js": "^4.1.1",
     "vue": "^3.2.38"
   }
 }

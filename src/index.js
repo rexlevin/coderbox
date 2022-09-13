@@ -21,6 +21,11 @@ const app = {
                     name: 'utf8',
                     path: './component/utf8.html',
                     state: 0
+                },
+                {
+                    name: 'base64',
+                    path: './component/base64.html',
+                    state: 0
                 }
             ],
             dataPwd: {
