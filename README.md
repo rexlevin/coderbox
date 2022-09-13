@@ -6,7 +6,7 @@
 
 - [x] 随机串/密码生成器
 
-- [ ] 中文/ASCii互转
+- [x] 中文/ASCii互转
 
 - [ ] 中文/UTF-8互转
 
@@ -14,7 +14,7 @@
 
 - [ ] MD5、SHA加密
 
-- [ ] base64编码/解码
+- [ ] Base64编码/解码
 
 # 开发
 
@@ -24,19 +24,32 @@ git clone
 cd coderbox
 npm i
 
+# 运行
+npm start
+```
+
+Bootstrap5终于不再需要jquery了，可以和Vue一起用：
+
+```bash
+npm i -D electron
+npm i vue bootstrap @popperjs/core
+```
+
+# 发行版打包
+
+```bash
 # 安装electron-builder
 npm i -g electron-builder
+
+cd coderbox
 # linux环境下打包
 npm run build-dist:linux
 # win环境下打包
 npm run build-dist:win
 ```
 
-Bootstrap5终于不再需要jquery了，可以和Vue一起用：
-
-```bash
-npm i -D electron webpack webpack-cli css-loader style-loader html-webpack-plugin
-npm i vue vue-router bootstrap @popperjs/core
-```
-
 # 截图
+
+![image-20220913152703258](https://imgbd.r-xnoro.com//image-20220913152703258.png)
+
+![image-20220913152551500](https://imgbd.r-xnoro.com//image-20220913152551500.png)
