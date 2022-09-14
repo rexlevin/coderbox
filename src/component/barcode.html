@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<div class="container-fluid" id="app">
+    <form rolw="form">
+        <div class="row pt-2 align-items-center">
+            <div class="col-2 text-end">编码：</div>
+            <div class="col-4"><select class="form-select" v-model="encoding" @change="changeEncoding">
+                <option value="NONE">请选择</option>
+                <option v-for="(item, index) in encodings" :key="index" :value="item.code">{{item.text}}</option>
+            </select></div>
+            <div class="col"></div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-2 text-end">数据：</div>
+            <div class="col-8">
+                <textarea class="form-control" style="resize:none" rows="9" :placeholder="dataMsg" v-model="dataText"></textarea>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-2"></div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" @click="createBarCode">生成条形码</button>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-2 text-end text-nowrap">条形码：</div>
+            <div class="col"><img id="barcode"></div>
+        </div>
+    </form>
+</div>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../node_modules/jsbarcode/dist/JsBarcode.all.min.js"></script>
+<script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script>
+const app = {
+    data() {
+        return {
+            encodings: [
+                {code: 'code128', text: 'Code 128', msg: '支持数字、大小写字母、普通符号及控制符'},
+                {code: 'code128a', text: 'Code 128 A'},
+                {code: 'code128b', text: 'Code 128 B'},
+                {code: 'code128c', text: 'Code 128 C'},
+                {code: 'ean2', text: 'EAN 2', msg: '仅支持2位数字', check: '\d{0,2}'},
+                {code: 'ean5', text: 'EAN 5'},
+                {code: 'ean8', text: 'EAN 8'},
+                {code: 'ean13', text: 'EAN 13', msg: 'EAN13码标准码共13位数字，系由「国家代码」3位数，「厂商代码」4位数，「产品代码」5位数，以及「校正码」1位数组成。', check: /^\d{13}/g},
+                {code: 'upca', text: 'UPC A'},
+                {code: 'upce', text: 'UPC E'},
+                {code: 'msi', text: 'MSI'}
+            ],
+            encoding: 'NONE',
+            dataMsg: '',
+            dataText: ''
+        }
+    },
+    methods: {
+        changeEncoding() {
+            this.dataMsg = getItem(this.encodings, this.encoding).msg;
+        },
+        createBarCode() {
+            console.info('encoding=========%s', this.encoding);
+            if('NONE' == this.encoding) return;
+            console.info('dataText=========%s', this.dataText)
+            let item = getItem(this.encodings, this.encoding);
+            if(!(new RegExp(item.check)).test(this.dataText)) {
+                return;
+            }
+            // JsBarcode('元素选择器','格式化文本', {选项});
+            JsBarcode('#barcode', this.dataText, {
+                format: this.encoding
+            })
+        }
+    }
+}
+Vue.createApp(app).mount('#app');
+
+function getItem(array, code) {
+    let i = '';
+    for(let item of array) {
+        if(code == item.code) {
+            i = item;
+            break;
+        }
+    }
+    return i;
+}
+</script>

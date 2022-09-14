@@ -29,6 +29,13 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link" @click="to('pwd')">随机数/密码生成器</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">图形码</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item" @click="to('barcode')">条形码</a>
+                            <a href="#" class="dropdown-item" @click="to('qrcode')">二维码</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>

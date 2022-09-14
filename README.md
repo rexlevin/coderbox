@@ -28,11 +28,11 @@ npm i
 npm start
 ```
 
-Bootstrap5终于不再需要jquery了，可以和Vue一起用：
+Bootstrap5终于不再需要jquery了:happy:
 
 ```bash
 npm i -D electron
-npm i vue bootstrap @popperjs/core crypto-js
+npm i vue bootstrap @popperjs/core crypto-js jsbarcode
 ```
 
 # 发行版打包

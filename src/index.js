@@ -1,33 +1,25 @@
+const routes = [
+    {
+        name: 'welcome', path: './component/welcome.html', state: 0
+    }, {
+        name: 'pwd', path: './component/pwd.html', state: 0
+    }, {
+        name: 'ascii', path: './component/ascii.html', state: 0
+    }, {
+        name: 'utf8', path: './component/utf8.html', state: 0
+    }, {
+        name: 'base64', path: './component/base64.html', state: 0
+    }, {
+        name: 'barcode', path: './component/barcode.html', state: 0
+    }, {
+        name: 'qrcode', path: './component/qrcode.html', state: 0
+    }
+]
+
 const app = {
     data() {
         return {
-            routes: [
-                {
-                    name: 'welcome',
-                    path: './component/welcome.html',
-                    state: 0
-                },
-                {
-                    name: 'pwd',
-                    path: './component/pwd.html',
-                    state: 0
-                },
-                {
-                    name: 'ascii',
-                    path: './component/ascii.html',
-                    state: 0
-                },
-                {
-                    name: 'utf8',
-                    path: './component/utf8.html',
-                    state: 0
-                },
-                {
-                    name: 'base64',
-                    path: './component/base64.html',
-                    state: 0
-                }
-            ],
+            routes: routes,
             dataPwd: {
                 genCount: 5
             }

@@ -4,7 +4,7 @@
     <div class="card bg-light text-gray">
         <div class="card-head text-muted">随机数/密码生成</div>
       </div>
-    <form role="form" class="needs-validation">
+    <form role="form">
         <div class="row pt-4 align-items-center">
             <!-- <div class="col-1"></div> -->
             <div class="col-2 text-end">生成数量</div>
@@ -14,9 +14,9 @@
         <div class="row mt-2 align-items-center">
             <!-- <div class="col-1"></div> -->
             <div class="col-2 text-end">长度</div>
-            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMin" @input="checkLenMin($event)"></div>-
-            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMax" @input="checkLenMax($event)"></div>
-            <div class="col"></div>
+            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMin" @change="checkLenMin($event)"></div>-
+            <div class="col-2"><input type="number" class="form-control" v-model="formPwd.lengthMax" @change="checkLenMax($event)"></div>
+            <div class="col">最少不得少于4个</div>
         </div>
         <div class="row mt-2 align-items-center">
             <!-- <div class="col-1"></div> -->
@@ -107,8 +107,8 @@ const app = {
     },
     methods: {
         checkGenCount(e) {
-            if(e.target.value < 4)
-                this.formPwd.genCount = 4;
+            if(e.target.value < 1)
+                this.formPwd.genCount = 1;
         },
         checkLenMin(e) {
             if(e.target.value < 4)
