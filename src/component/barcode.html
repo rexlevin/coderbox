@@ -79,6 +79,7 @@ const app = {
         download() {
             let fileName = 'barcode.png';
             let imgStr = document.getElementById('barcode').src.toString();
+            // 图片下载感谢 [小黑ii](https://blog.csdn.net/qq_35844177?type=blog)：[js下载base64格式的图片](https://blog.csdn.net/qq_35844177/article/details/79094249)
             downloadFile(fileName, imgStr);
         }
     }
