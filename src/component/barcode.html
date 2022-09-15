@@ -13,7 +13,7 @@
         <div class="row pt-2">
             <div class="col-2 text-end">数据：</div>
             <div class="col-8">
-                <textarea class="form-control" style="resize:none" rows="9" :placeholder="dataMsg" v-model="dataText"></textarea>
+                <textarea class="form-control" style="resize:none" rows="4" :placeholder="dataMsg" v-model="dataText"></textarea>
             </div>
             <div class="col"></div>
         </div>
@@ -38,17 +38,20 @@ const app = {
     data() {
         return {
             encodings: [
-                {code: 'code128', text: 'Code 128', msg: '支持数字、大小写字母、普通符号及控制符', check: ''},
-                {code: 'code128a', text: 'Code 128 A'},
-                {code: 'code128b', text: 'Code 128 B'},
-                {code: 'code128c', text: 'Code 128 C', msg: '偶数个纯数字编码', check: /^(\d\d){0,}$/g},
+                {code: 'code128', text: 'Code 128', msg: 'CODE128码是广泛应用在企业内部管理、生产流程、物流控制系统方面的条码码制，可表示从 ASCII 0 到ASCII 127 共128个字符，故称128码。支持数字、大小写字母、普通符号及控制符，如：AB+cd-1234%'},
+                {code: 'code128a', text: 'Code 128 A', msg: '标准数字和大写字母、控制符、特殊字符'},
+                {code: 'code128b', text: 'Code 128 B', msg: '标准数字和大写字母、小写字母、特殊字符'},
+                {code: 'code128c', text: 'Code 128 C', msg: '偶数个纯数字编码，[00]-[99]的数字对集合,共100个', check: /^(\d\d){0,}$/g},
                 {code: 'ean2', text: 'EAN 2', msg: '仅支持2位数字', check: /^\d{2}$/g},
                 {code: 'ean5', text: 'EAN 5', msg: 'EAN 5码共5位数字，它是EAN13条码用于书籍的一种补充,它被建议是用来提供的书籍的价格。', check: /^\d{5}$/g},
                 {code: 'ean8', text: 'EAN 8', msg: 'EAN8缩短码（European Article Number欧洲物品编码）广泛用于商品条码，共8位数字，是EAN的简易编码形式。最后一位为校验位，由前面的12位或7位数字计算得出。', check: /^\d{8}$/g},
                 {code: 'ean13', text: 'EAN 13', msg: 'EAN13标准码（European Article Number欧洲物品编码）广泛用于商品条码，共13位数字，是EAN的标准编码形式，系由「国家代码」3位数，「厂商代码」4位数，「产品代码」5位数，以及「校正码」1位数组成。最后一位校验位，由前面的12位或7位数字计算得出。', check: /^\d{13}$/g},
-                {code: 'upca', text: 'UPC A'},
-                {code: 'upce', text: 'UPC E'},
-                {code: 'msi', text: 'MSI'}
+                {code: 'upc', text: 'UPC', msg: 'universal production code，商品通用条码，是一种长度固定、连续性的条码，UPC码仅可用来表示数字，故其字码集为数字0~9。'},
+                {code: 'msi', text: 'MSI', msg: 'MSI或修改的Plessey是由MSI数据公司开发的条形码，主要用于仓库环境中的库存控制、标记存储容器和货架。仅支持数字0-9。', check: /^\d+$/g},
+                {code: 'msi10', text: 'MSI10', msg: 'MSI 10 的自动校验和计算。仅支持数字0-9。', check: /^\d+$/g},
+                {code: 'msi11', text: 'MSI11', msg: 'MSI 11 的自动校验和计算。仅支持数字0-9。', check: /^\d+$/g},
+                {code: 'msi1010', text: 'MSI1010', msg: 'MSI 1010 的自动校验和计算。仅支持数字0-9。', check: /^\d+$/g},
+                {code: 'msi1110', text: 'MSI1110', msg: 'MSI 1110 的自动校验和计算。仅支持数字0-9。', check: /^\d+$/g}
             ],
             encoding: 'NONE',
             dataMsg: '',

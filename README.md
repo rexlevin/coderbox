@@ -16,7 +16,7 @@
 
 - [ ] MD5、SHA加密
 
-- [ ] 条形码生成器
+- [x] 条形码生成器
 
 - [ ] 二维码生成器
 
@@ -69,3 +69,7 @@ npm run build-dist:win
 ## 随机数/密码生成器
 
 ![image-20220913152551500](https://imgbd.r-xnoro.com//image-20220913152551500.png)
+
+## 条形码
+
+![image-20220915145849226](https://imgbd.r-xnoro.com//image-20220915145849226.png)
