@@ -38,11 +38,11 @@ const app = {
     data() {
         return {
             encodings: [
-                {code: 'code128', text: 'Code 128', msg: '支持数字、大小写字母、普通符号及控制符'},
+                {code: 'code128', text: 'Code 128', msg: '支持数字、大小写字母、普通符号及控制符', check: ''},
                 {code: 'code128a', text: 'Code 128 A'},
                 {code: 'code128b', text: 'Code 128 B'},
                 {code: 'code128c', text: 'Code 128 C'},
-                {code: 'ean2', text: 'EAN 2', msg: '仅支持2位数字', check: '\d{0,2}'},
+                {code: 'ean2', text: 'EAN 2', msg: '仅支持2位数字', check: '\d{2}'},
                 {code: 'ean5', text: 'EAN 5'},
                 {code: 'ean8', text: 'EAN 8', msg: 'EAN8缩短码（European Article Number欧洲物品编码）广泛用于商品条码，共8位数字，是EAN的简易编码形式。最后一位为校验位，由前面的12位或7位数字计算得出。', check: /^\d{8}$/g},
                 {code: 'ean13', text: 'EAN 13', msg: 'EAN13标准码（European Article Number欧洲物品编码）广泛用于商品条码，共13位数字，是EAN的标准编码形式，系由「国家代码」3位数，「厂商代码」4位数，「产品代码」5位数，以及「校正码」1位数组成。最后一位校验位，由前面的12位或7位数字计算得出。', check: /^\d{13}$/g},
