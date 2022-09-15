@@ -1,18 +1,18 @@
 const routes = [
     {
-        name: 'welcome', path: './component/welcome.html', state: 0
+        name: 'welcome', title: '首页', path: './component/welcome.html', state: 0
     }, {
-        name: 'pwd', path: './component/pwd.html', state: 0
+        name: 'pwd', title: '随机数/密码生成', path: './component/pwd.html', state: 0
     }, {
-        name: 'ascii', path: './component/ascii.html', state: 0
+        name: 'ascii', title: '中文/ASCii互转', path: './component/ascii.html', state: 0
     }, {
-        name: 'utf8', path: './component/utf8.html', state: 0
+        name: 'utf8', title: '中文/UTF-8编码互转', path: './component/utf8.html', state: 0
     }, {
-        name: 'base64', path: './component/base64.html', state: 0
+        name: 'base64', title: 'Base64编码/解码', path: './component/base64.html', state: 0
     }, {
-        name: 'barcode', path: './component/barcode.html', state: 0
+        name: 'barcode', title: '条形码', path: './component/barcode.html', state: 0
     }, {
-        name: 'qrcode', path: './component/qrcode.html', state: 0
+        name: 'qrcode', title: '二维码', path: './component/qrcode.html', state: 0
     }
 ]
 
@@ -22,7 +22,9 @@ const app = {
             routes: routes,
             dataPwd: {
                 genCount: 5
-            }
+            },
+            title: '',
+            see: false
         }
     },
     created() {
@@ -43,27 +45,48 @@ const app = {
         document.getElementById('content').innerHTML = '<object type="text/html" data="./component/welcome.html" width="100%" height="600px"></object>';
     },
     methods: {
+        refresh() {
+            window.api.reload();
+        },
         to(name) {
-            let p = route(name, this.routes)
-            if('' == p) return;
-            document.getElementById('content').innerHTML = '<object type="text/html" data="' + p + '" width="100%" height="100%"></object>';
+            let route = getRoute(name, this.routes)
+            console.info(route);
+            if(undefined == route || '' == route) return;
+            this.title = route.title;
+            this.see =  true
+            setRouteState(route, this.routes)
+            document.getElementById('content').innerHTML = '<object type="text/html" data="' + route.path + '" width="100%" height="100%"></object>';
         }
     }
 }
 Vue.createApp(app).mount('#app');
 
-function route(name, routes) {
-    let p = '';
+function refresh() {
+    window.api.reload();
+}
+function devTools() {
+    window.api.devTools();
+}
+
+function setRouteState(route, routes) {
+    for(let j of routes) {
+        if(route.name == j.name) {
+            j.state = 1;
+        } else {
+            j.state = 0;
+        }
+    }
+}
+
+function getRoute(name, routes) {
+    let r = '';
     for(let j of routes) {
         if(name == j['name']) {
             if(1 == j['state']) {
                 break;
             }
-            p = j['path'];
-            j['state'] = 1;
-        } else {
-            j['state'] = 0;
+            r = j;
         }
     }
-    return p;
+    return r
 }

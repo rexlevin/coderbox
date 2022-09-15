@@ -39,7 +39,12 @@
                 </ul>
             </div>
         </nav>
-        <div id="content" class="h-100" style="padding-top:50px; margin:0;"></div>
+        <div id="" class="h-100" style="padding-top:50px; margin:0;">
+            <div class="card bg-light text-gray" v-if="see">
+                <div class="card-head text-muted">{{title}}</div>
+            </div>
+            <div id="content" class="h-100"></div>
+        </div>
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../node_modules/vue/dist/vue.global.prod.js"></script>

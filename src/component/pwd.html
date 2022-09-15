@@ -1,9 +1,6 @@
 <link rel="stylesheet" href="../index.css">
 <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <div class="container-fluid" id="app">
-    <div class="card bg-light text-gray">
-        <div class="card-head text-muted">随机数/密码生成</div>
-      </div>
     <form role="form">
         <div class="row pt-4 align-items-center">
             <!-- <div class="col-1"></div> -->
@@ -104,6 +101,16 @@ const app = {
                 result: ''
             }
         }
+    },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
     },
     methods: {
         checkGenCount(e) {

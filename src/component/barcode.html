@@ -58,6 +58,16 @@ const app = {
             dataText: ''
         }
     },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
+    },
     methods: {
         changeEncoding() {
             this.dataMsg = getItem(this.encodings, this.encoding).msg;
