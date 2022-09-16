@@ -1,0 +1,162 @@
+<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<div class="container-fluid" id="app">
+    <div class="row pt-2">
+        <div class="col-6">
+            <div class="row">
+                <div class="col">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li v-for="(type, index) in types" class="nav-item">
+                            <a :href="'#'+type.code" class="nav-link" data-bs-toggle="tab">{{type.text}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col">
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="text">
+                            <div class="row">
+                                <div class="col">
+                                    <textarea class="form-control" ref="text" style="resize:none;" cols="30" rows="10" v-model="content"></textarea>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col text-end">
+                                    <button class="btn btn-primary" @click="genText">生成二维码</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="contact">
+                            <div class="row">
+                                <div class="col input-group"><span class="input-group-text">姓名：<label style="color:red;">*</label></span><input type="text" class="form-control" v-model="contact.name"></div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col input-group"><span class="input-group-text">手机：<label style="color:red;">*</label></span><input type="text" class="form-control" v-model="contact.mobile"></div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col input-group"><span class="input-group-text">邮箱：</span><input type="text" class="form-control" v-model="contact.email"></div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col input-group"><span class="input-group-text">公司：</span><input type="text" class="form-control" v-model="contact.company"></div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col input-group"><span class="input-group-text">职位：</span><input type="text" class="form-control" v-model="contact.title"></div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col input-group"><span class="input-group-text">公司网址：</span><input type="text" class="form-control" v-model="contact.url"></div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col text-end"><button type="button" class="btn btn-primary" @click="genContact">生成二维码</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <!-- <div class="row"><div class="col">&nbsp;</div></div> -->
+            <div class="row">
+                <div class="col text-center align-top">
+                    <canvas id="qrcode"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../node_modules/qrcode/build/qrcode.js"></script>
+<script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script>
+const app = {
+    data() {
+        return {
+            types: [
+                {code: 'text', text: '文本', msg: '文字、url等'},
+                {code: 'contact', text: '名片'}
+            ],
+            type: 'text',
+            content: '',
+            contact: {
+                name: '',
+                mobile: '',
+                email: '',
+                company: '',
+                title: '',
+                url: ''
+            }
+        }
+    },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
+    },
+    mounted() {
+        let links = document.querySelectorAll('#myTab a');
+        let canvas = document.getElementById('qrcode');
+        links.forEach((link) => {
+            link.addEventListener('click', (e) => {
+                canvas.height = canvas.height;
+            });
+        });
+
+        // let myTab = document.getElementById('myTab');
+        // console.info(myTab.firstChild); // 如果父子元素之间有空格之类的，firstChild获取到的是一个text
+        // 所以这里正确使用的应该是firstElementChild
+        // console.info(myTab.firstElementChild);
+        // myTab.firstElementChild.firstElementChild.click();
+        document.querySelector('#myTab li:first-child a').click();
+        this.$refs.text.focus();
+    },
+    methods: {
+        genText() {
+            let canvas = document.getElementById('qrcode');
+            canvas.height = canvas.height;
+            if(undefined == this.content || '' == this.content) return;
+            QRCode.toCanvas(canvas, this.content, {
+                width: 400, height: 400,
+                margin: 2
+            }, (err) => {
+                if(err) console.error(err);
+                else console.info('success');
+            });
+        },
+        genContact() {
+            let canvas = document.getElementById('qrcode');
+            canvas.height = canvas.height;
+            let inputs = document.querySelectorAll('#contact input');
+            if('' == this.contact.name) {
+                inputs[0].focus();
+                return;
+            }
+            if('' == this.contact.mobile) {
+                inputs[1].focus();
+                return;
+            }
+            let vcard = 'BEGIN:VCARD \n' +
+                       'VERSION:3.0 \n' +
+                       'FN:' + this.contact.name + ' \n' +
+                       'TEL;CELL,VOICE:' + this.contact.mobile + ' \n' +
+                       'EMAIL;TYPE=PREF,INTERNET:' + this.contact.email + ' \n' +
+                       'ORG:' + this.contact.company + ' \n' +
+                       'TITLE:' + this.contact.title + ' \n' +
+                       'URL:' + this.contact.url + ' \n' +
+                       'END:VCARD';
+            QRCode.toCanvas(canvas, vcard, {
+                width: 400, height: 400,
+                margin: 2
+            }, (err) => {
+                if(err) console.error(err);
+                else console.info('success');
+            });
+        }
+    }
+}
+Vue.createApp(app).mount('#app');
+</script>

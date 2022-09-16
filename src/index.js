@@ -42,6 +42,7 @@ const app = {
         window.api.getTitle('title', (v) => {
             document.title = v;
         });
+        this.title = '首页', this.see = true;
         document.getElementById('content').innerHTML = '<object type="text/html" data="./component/welcome.html" width="100%" height="600px"></object>';
     },
     methods: {
@@ -50,10 +51,9 @@ const app = {
         },
         to(name) {
             let route = getRoute(name, this.routes)
-            console.info(route);
             if(undefined == route || '' == route) return;
             this.title = route.title;
-            this.see =  true
+            this.see = (undefined != route.title && '' != route.title)
             setRouteState(route, this.routes)
             document.getElementById('content').innerHTML = '<object type="text/html" data="' + route.path + '" width="100%" height="100%"></object>';
         }
