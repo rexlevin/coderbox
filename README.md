@@ -20,6 +20,8 @@
 
 - [ ] 二维码生成器
 
+- [ ] 解析二维码
+
 # 开发
 
 ```bash
@@ -36,8 +38,17 @@ Bootstrap5终于不再需要jquery了:happy:
 
 ```bash
 npm i -D electron
-npm i vue bootstrap @popperjs/core crypto-js jsbarcode
+npm i vue bootstrap@5 @popperjs/core crypto-js jsbarcode
 ```
+
+| 依赖包                        | 说明       |
+| ----------------------------- | ---------- |
+| bootstrap@5<br>@popperjs/core | bootstrap5 |
+| crypto-js                     | 加解密     |
+| jsbarcode                     | 条形码     |
+| qrcode                        | 二维码     |
+
+
 
 # 发行版打包
 
@@ -46,9 +57,9 @@ npm i vue bootstrap @popperjs/core crypto-js jsbarcode
 npm i -g electron-builder
 
 cd coderbox
-# linux环境下打包
+# linux环境下打包，appimage
 npm run build-dist:linux
-# win环境下打包
+# win环境下打包，exe安装包
 npm run build-dist:win
 ```
 
