@@ -1,16 +1,71 @@
 <link rel="stylesheet" href="../index.css">
 <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <div class="container-fluid" id="app">
-    <h1>hello world</h1>
+    <div class="row pt-2">
+        <div class="col-6"></div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col"><h2>功能</h2></div>
+            </div>
+            <div class="row">
+                <div class="col" id="routes" >
+                    <!-- <ul class="list-unstyled">
+                        <li v-for="(route, index) in routes" @click="to(route.name)">{{route.title}}</li>
+                    </ul> -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script src="../router.js"></script>
 <script>
 const app = {
     data() {
+        return {
+            routes: routes
+        }
+    },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
+    },
+    mounted() {
+        drawNavigator(document.querySelector('#routes'), this.routes);
     },
     methods: {
+        // to(name) {
+        //     parent.document.getElementById(name).click();
+        // }
     }
 }
 Vue.createApp(app).mount('#app');
+
+function to(name) {
+    parent.document.getElementById(name).click();
+}
+function drawNavigator(selector, routes) {
+    let ul = document.createElement('ul')
+    // ul.className += 'list-unstyled'
+    for(let route of routes) {
+        let li = document.createElement('li')
+        li.innerText = route.title
+        if(route.type == 'node') {
+            li.setAttribute('onclick', 'to(\'' + route.name + '\')');
+            li.style.cursor = 'pointer'
+            li.id = route.name
+        } else {
+            drawNavigator(li, route.group)
+        }
+        ul.appendChild(li)
+    }
+    selector.appendChild(ul);
+}
 </script>
