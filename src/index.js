@@ -1,20 +1,12 @@
-const routes = [
-    {
-        name: 'welcome', title: '首页', path: './component/welcome.html', state: 0
-    }, {
-        name: 'pwd', title: '随机数/密码生成', path: './component/pwd.html', state: 0
-    }, {
-        name: 'ascii', title: '中文/ASCii互转', path: './component/ascii.html', state: 0
-    }, {
-        name: 'utf8', title: '中文/UTF-8编码互转', path: './component/utf8.html', state: 0
-    }, {
-        name: 'base64', title: 'Base64编码/解码', path: './component/base64.html', state: 0
-    }, {
-        name: 'barcode', title: '条形码', path: './component/barcode.html', state: 0
-    }, {
-        name: 'qrcode', title: '二维码', path: './component/qrcode.html', state: 0
-    }
-]
+// const routes = [
+//     { name: 'welcome', title: '首页', path: './component/welcome.html', state: 0 },
+//     { name: 'pwd', title: '随机数/密码生成', path: './component/pwd.html', state: 0 },
+//     { name: 'ascii', title: '中文/ASCii互转', path: './component/ascii.html', state: 0 },
+//     { name: 'utf8', title: '中文/UTF-8编码互转', path: './component/utf8.html', state: 0 },
+//     { name: 'base64', title: 'Base64编码/解码', path: './component/base64.html', state: 0 },
+//     { name: 'barcode', title: '条形码', path: './component/barcode.html', state: 0 },
+//     { name: 'qrcode', title: '二维码', path: './component/qrcode.html', state: 0 }
+// ]
 
 const app = {
     data() {
@@ -44,19 +36,59 @@ const app = {
         });
         this.title = '首页', this.see = true;
         document.getElementById('content').innerHTML = '<object type="text/html" data="./component/welcome.html" width="100%" height="600px"></object>';
+
+        this.drawNavigator(document.querySelector('#navBar'), this.routes)
     },
     methods: {
-        refresh() {
-            window.api.reload();
-        },
         to(name) {
             let route = getRoute(name, this.routes)
+            console.info(route);
             if(undefined == route || '' == route) return;
             this.title = route.title;
             this.see = (undefined != route.title && '' != route.title)
             setRouteState(route, this.routes)
             document.getElementById('content').innerHTML = '<object type="text/html" data="' + route.path + '" width="100%" height="100%"></object>';
+        },
+        drawNavigator(selector, routes) {
+            let ul = document.createElement('ul')
+            ul.classList.add('navbar-nav');
+            for(let route of routes) {
+                let li = document.createElement('li')
+                li.classList.add('nav-item')
+                let link = document.createElement('a')
+                link.href = '#'
+                link.classList.add('nav-link')
+                link.innerText = route.title
+                if(route.type == 'node') {
+                    link.addEventListener('click', () => {this.to(route.name)});
+                    link.id = route.name
+                    li.appendChild(link)
+                } else {
+                    li.classList.add('dropdown')
+                    link.classList.add('dropdown-toggle')
+                    link.setAttribute('data-bs-toggle', 'dropdown')
+                    let div = document.createElement('div')
+                    div.classList.add('dropdown-menu')
+                    li.appendChild(link)
+                    li.appendChild(div)
+                    this.drawSubNavigator(div, route.group)
+                }
+                ul.appendChild(li)
+            }
+            selector.appendChild(ul);
+        },
+        drawSubNavigator(selector, routes) {
+            for(let route of routes) {
+                let link = document.createElement('a')
+                link.href = '#'
+                link.classList.add('dropdown-item')
+                link.id = route.name
+                link.addEventListener('click', () => {this.to(route.name)})
+                link.innerText = route.title
+                selector.appendChild(link)
+            }
         }
+        
     }
 }
 Vue.createApp(app).mount('#app');
@@ -70,10 +102,14 @@ function devTools() {
 
 function setRouteState(route, routes) {
     for(let j of routes) {
-        if(route.name == j.name) {
-            j.state = 1;
+        if(j.type == 'node') {
+            if(route.name == j.name) {
+                j.state = 1;
+            } else {
+                j.state = 0;
+            }
         } else {
-            j.state = 0;
+            setRouteState(route, j.group)
         }
     }
 }
@@ -81,11 +117,16 @@ function setRouteState(route, routes) {
 function getRoute(name, routes) {
     let r = '';
     for(let j of routes) {
-        if(name == j['name']) {
-            if(1 == j['state']) {
-                break;
+        if(j.type == 'node') {
+            if(name == j['name']) {
+                if(1 == j['state']) {
+                    break;
+                }
+                r = j;
             }
-            r = j;
+        } else {
+            let t = getRoute(name, j.group)
+            if(undefined != t && '' != t) r = t;
         }
     }
     return r

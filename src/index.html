@@ -11,32 +11,32 @@
 <body>
     <div id="app" class="h-100" style="overflow:hidden;">
         <nav class="navbar navbar-expand-sm position-absolute" style="height:50px;">
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav">
+            <div class="collapse navbar-collapse" id="navBar">
+                <!-- <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link" @click="to('welcome')">首页</a>
+                        <a href="#" class="nav-link" id="welcome" @click="to('welcome')">首页</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">编码/加密</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item" @click="to('ascii')">中文/ASCii互转</a>
-                            <a href="#" class="dropdown-item" @click="to('utf8')">中文/UTF-8互转</a>
-                            <a href="#" class="dropdown-item" @click="to('base64')">Base64编码/解码</a>
-                            <!-- <a href="#" class="dropdown-item">散列/哈希加密</a>
-                            <a href="#" class="dropdown-item">AES/DES加解密</a> -->
+                            <a href="#" class="dropdown-item" id="ascii" @click="to('ascii')">中文/ASCii互转</a>
+                            <a href="#" class="dropdown-item" id="utf8" @click="to('utf8')">中文/UTF-8互转</a>
+                            <a href="#" class="dropdown-item" id="base64" @click="to('base64')">Base64编码/解码</a>
+                            <a href="#" class="dropdown-item">散列/哈希加密</a>
+                            <a href="#" class="dropdown-item">AES/DES加解密</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" @click="to('pwd')">随机数/密码生成器</a>
+                        <a href="#" class="nav-link" id="pwd" @click="to('pwd')">随机数/密码生成器</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">图形码</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item" @click="to('barcode')">条形码</a>
-                            <a href="#" class="dropdown-item" @click="to('qrcode')">二维码</a>
+                            <a href="#" class="dropdown-item" id="barcode" @click="to('barcode')">条形码</a>
+                            <a href="#" class="dropdown-item" id="qrcode" @click="to('qrcode')">二维码</a>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
             </div>
         </nav>
         <div id="" class="h-100" style="padding-top:50px; margin:0;">
@@ -48,6 +48,7 @@
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../node_modules/vue/dist/vue.global.prod.js"></script>
+    <script src="./router.js"></script>
     <script src="./index.js"></script>
 </body>
 </html>
