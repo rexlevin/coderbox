@@ -12,7 +12,7 @@
 
 - [x] Base64编码/解码
 
-- [ ] AES/DES加解密
+- [x] AES/DES/3DES加解密
 
 - [ ] MD5、SHA加密
 
@@ -86,3 +86,7 @@ npm run build-dist:win
 ## 条形码
 
 ![image-20220915145849226](https://imgbd.r-xnoro.com//image-20220915145849226.png)
+
+## 对称加密
+
+![image-20220919170834776](https://imgbd.r-xnoro.com//image-20220919170834776.png)

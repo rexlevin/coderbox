@@ -1,0 +1,90 @@
+<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<div class="container-fluid" id="app">
+    <div class="row pt-2">
+        <div class="col-1 text-end">原文：</div>
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strNative" cols="30" rows="10"></textarea></div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-1"></div>
+        <div class="col-2">
+            <select class="form-select" v-model="type"><option v-for="(type,index) in types" :value="type.code">{{type.text}}</option></select>
+        </div>
+        <div class="col-6">
+            <input type="text" class="form-control" v-model="key" placeholder="密钥">
+        </div>
+        <div class="col text-end">
+            <button type="button" class="btn btn-primary text-nowrap" @click="encode">&nbsp;加&nbsp;&nbsp;密&nbsp;⇩&nbsp;</button>
+            <button type="button" class="btn btn-primary text-nowrap" style="margin-left:15px;" @click="decode">&nbsp;解&nbsp;&nbsp;密&nbsp;⇧&nbsp;</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-1 text-end text-nowrap">密文：</div>
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strCypher" cols="30" rows="10"></textarea></div>
+    </div>
+</div>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../node_modules/crypto-js/crypto-js.js"></script>
+<script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script>
+const app = {
+    data() {
+        return {
+            types: [
+                {code: 'aes', text: 'AES'},
+                {code: 'des', text: 'DES'},
+                {code: '3des', text: '3DES'}
+            ],
+            type: 'aes',
+            key: '',
+            strNative: '',
+            strCypher: ''
+        }
+    },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
+    },
+    methods: {
+        encode() {
+            if('' == this.strNative) return;
+            switch (this.type) {
+                case 'aes':
+                    this.strCypher = CryptoJS.AES.encrypt(this.strNative, this.key)
+                    break;
+                case 'des':
+                this.strCypher = CryptoJS.DES.encrypt(this.strNative, this.key)
+                    break;
+                case '3des':
+                this.strCypher = CryptoJS.TripleDES.encrypt(this.strNative, this.key)
+                    break;
+                default:
+                    break;
+            }
+        },
+        decode() {
+            if('' == this.strCypher) return;
+            switch (this.type) {
+                case 'aes':
+                    this.strNative = CryptoJS.AES.decrypt(this.strCypher, this.key).toString(CryptoJS.enc.Utf8)
+                    break;
+                case 'des':
+                this.strNative = CryptoJS.DES.decrypt(this.strCypher, this.key).toString(CryptoJS.enc.Utf8)
+                    break;
+                case '3des':
+                this.strNative = CryptoJS.TripleDES.decrypt(this.strCypher, this.key).toString(CryptoJS.enc.Utf8)
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+Vue.createApp(app).mount('#app');
+</script>
