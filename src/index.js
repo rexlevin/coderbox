@@ -42,7 +42,6 @@ const app = {
     methods: {
         to(name) {
             let route = getRoute(name, this.routes)
-            console.info(route);
             if(undefined == route || '' == route) return;
             this.title = route.title;
             this.see = (undefined != route.title && '' != route.title)

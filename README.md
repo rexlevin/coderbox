@@ -63,6 +63,10 @@ npm run build-dist:win
 
 # 截图
 
+## 首页
+
+![image-20220919144743393](https://imgbd.r-xnoro.com//image-20220919144743393.png)
+
 ## 中文/ASCii编码
 
 ![image-20220913152703258](https://imgbd.r-xnoro.com//image-20220913152703258.png)
