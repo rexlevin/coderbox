@@ -61,6 +61,9 @@
                     <canvas id="qrcode"></canvas>
                 </div>
             </div>
+            <div class="row">
+                <div class="col text-center">点击二维码下载图片</div>
+            </div>
         </div>
     </div>
 </div>
@@ -126,6 +129,12 @@ const app = {
                 if(err) console.error(err);
                 else console.info('success');
             });
+            canvas.addEventListener('click', () => {
+                let link = document.createElement('a')
+                link.href = canvas.toDataURL()
+                link.download = 'qrcode.png'
+                link.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true, view: window}));
+            }, false)
         },
         genContact() {
             let canvas = document.getElementById('qrcode');
@@ -155,6 +164,12 @@ const app = {
                 if(err) console.error(err);
                 else console.info('success');
             });
+            canvas.addEventListener('click', () => {
+                let link = document.createElement('a')
+                link.href = canvas.toDataURL()
+                link.download = 'qrcode.png'
+                link.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true, view: window}));
+            }, false)
         }
     }
 }
