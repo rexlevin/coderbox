@@ -5,7 +5,8 @@ const routes = [
         { type: 'node', name: 'ascii', title: '中文/ASCii互转', path: './component/ascii.html', state: 0 },
         { type: 'node', name: 'utf8', title: '中文/UTF-8编码互转', path: './component/utf8.html', state: 0 },
         { type: 'node', name: 'base64', title: 'Base64编码/解码', path: './component/base64.html', state: 0 },
-        { type: 'node', name: 'aes', title: 'AES/DES/3DES', path: './component/aes.html', state: 0}
+        { type: 'node', name: 'aes', title: 'AES/DES/3DES', path: './component/aes.html', state: 0},
+        { type: 'node', name: 'rsa', title: 'RSA非对称加密', path: './component/rsa.html', state: 0}
     ]},
     { type: 'group', name: '', title: '图形码', group: [
         { type: 'node', name: 'barcode', title: '条形码', path: './component/barcode.html', state: 0 },

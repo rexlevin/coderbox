@@ -36,17 +36,17 @@ Bootstrap5终于不再需要jquery了:happy:
 
 ```bash
 npm i -D electron
-npm i vue bootstrap@5 @popperjs/core crypto-js jsbarcode
+npm i vue bootstrap@5 @popperjs/core crypto-js jsbarcode qrcode jsencrypt
 ```
 
 | 依赖包                        | 说明       |
 | ----------------------------- | ---------- |
 | bootstrap@5<br>@popperjs/core | bootstrap5 |
+| bootstrap-icons               | [bootstrap图标库](https://icons.bootcss.com/) |
 | crypto-js                     | 加解密     |
 | jsbarcode                     | 条形码     |
 | qrcode                        | 二维码     |
-
-
+| jsencrypt                     | RSA加解密  |
 
 # 发行版打包
 

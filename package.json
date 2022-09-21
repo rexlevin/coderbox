@@ -41,8 +41,10 @@
   "dependencies": {
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.0",
+    "bootstrap-icons": "^1.9.1",
     "crypto-js": "^4.1.1",
     "jsbarcode": "^3.11.5",
+    "jsencrypt": "^3.2.1",
     "qrcode": "^1.5.1",
     "vue": "^3.2.38"
   }
