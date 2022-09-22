@@ -2,6 +2,7 @@ const { app, BrowserWindow, Menu, Tray, ipcMain } = require('electron')
 const path = require('path')
 const package = require('./package.json')
 
+// 清除启动时electron的安全告警：Electron Security Warning (Insecure Content-Security-Policy)
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win;

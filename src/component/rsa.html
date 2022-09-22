@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 <div class="container-fluid" id="app">
-
     <div class="row pt-2">
         <div class="col">
             <div class="row">
@@ -10,7 +9,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <textarea class="form-control" v-model="publicKey" style="resize:none;color:grey" rows="10"></textarea>
+                    <textarea class="form-control" v-model="publicKey" style="resize:none;color:grey" rows="8"></textarea>
                 </div>
             </div>
         </div>
@@ -35,9 +34,28 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <textarea class="form-control" v-model="privateKey" style="resize:none;color:grey" rows="10"></textarea>
+                    <textarea class="form-control" v-model="privateKey" style="resize:none;color:grey" rows="8"></textarea>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <button type="button" class="btn btn-primary">用公钥加密下面的内容</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary">用私钥解密下面的内容</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-success">用私钥签名下面的内容</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-success">用公钥验签下面的内容</button>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <textarea class="form-control" v-model="resultText" style="resize:none;" rows="10"></textarea>
         </div>
     </div>
 </div>
@@ -56,7 +74,8 @@ const app = {
             ],
             keySize: 512,
             publicKey: '',
-            privateKey: ''
+            privateKey: '',
+            resultText: ''
         }
     },
     created() {
@@ -74,18 +93,8 @@ const app = {
             let cypher = new JSEncrypt({
                 default_key_size: this.keySize
             });
-            console.info(cypher.getPrivateKey())
             this.publicKey = cypher.getPublicKey();
             this.privateKey = cypher.getPrivateKey();
-            // new Promise(function (resolve) {
-            //     setTimeout(function () {
-            //         resolve([crypt.getPrivateKey(), crypt.getPublicKey()]);
-            //     }, 50);
-            // }).then(function (e) {
-            //     this.privateKey = e[0];
-            //     this.publicKey = e[1];
-            //     console.info(this.publicKey)
-            // });
         }
     }
 }
