@@ -41,26 +41,74 @@
     </div>
     <div class="row mt-2">
         <div class="col">
-            <button type="button" class="btn btn-primary">用公钥加密下面的内容</button>
+            <button type="button" class="btn btn-primary" @click="encrypt">用公钥加密下面的内容</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-primary">用私钥解密下面的内容</button>
+            <button type="button" class="btn btn-primary" @click="decrypt">用私钥解密下面的内容</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-success">用私钥签名下面的内容</button>
+            <button type="button" class="btn btn-success" @click="sign">用私钥签名下面的内容</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-success">用公钥验签下面的内容</button>
+            <button type="button" id="btnEnter" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalSign">用公钥验签下面的内容</button>
         </div>
     </div>
     <div class="row mt-2">
         <div class="col">
-            <textarea class="form-control" v-model="resultText" style="resize:none;" rows="10"></textarea>
+            <textarea class="form-control" v-model="content" style="resize:none;" rows="10"></textarea>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalSign" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+      
+                <!-- 模态框头部 -->
+                <div class="modal-header">
+                    <h4 class="modal-title">输入签名内容</h4>
+                </div>
+        
+                <!-- 模态框内容 -->
+                <div class="modal-body">
+                    <textarea class="form-control" v-model="signature" placeholder="请输入签名" id="taSign" ref="taSign" style="resize:none" rows="8"></textarea>
+                </div>
+        
+                <!-- 模态框底部 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="cancel">取消</button>
+                    <button type="button" class="btn btn-primary" id="btnVerify" data-bs-dismiss="modal" @click="verify" disabled>确认</button>
+                </div>
+      
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="verifyAlert" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+      
+                <!-- 模态框头部 -->
+                <div class="modal-header">
+                    <h4 class="modal-title">验签结果</h4>
+                </div>
+        
+                <!-- 模态框内容 -->
+                <div class="modal-body" ref="verifyResult">
+                    <p>验签通过</p>
+                </div>
+        
+                <!-- 模态框底部 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">确认</button>
+                </div>
+      
+            </div>
         </div>
     </div>
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../node_modules/jsencrypt/bin/jsencrypt.min.js"></script>
+<script src="../../node_modules/crypto-js/crypto-js.js"></script>
 <script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
 <script>
 const app = {
@@ -75,7 +123,8 @@ const app = {
             keySize: 512,
             publicKey: '',
             privateKey: '',
-            resultText: ''
+            content: '',
+            signature: ''
         }
     },
     created() {
@@ -88,6 +137,20 @@ const app = {
             }
         });
     },
+    mounted() {
+        this.$refs.taSign.addEventListener('input', function() {
+            // console.info('signature========%s', this.signature);
+            // console.info('signature2=======%s', document.querySelector('#taSign').value)
+            let v =  document.querySelector('#taSign').value.trim()
+            // console.info('signature========%s=======%s', this.signature, v);
+            if(undefined == v || '' == v) {
+                document.getElementById('btnVerify').disabled = true;
+                return;
+            }
+            document.querySelector('#btnVerify').disabled = false;
+            // document.getElementById('btnVerify').disabled = false;
+        });
+    },
     methods: {
         generateKey() {
             let cypher = new JSEncrypt({
@@ -95,6 +158,95 @@ const app = {
             });
             this.publicKey = cypher.getPublicKey();
             this.privateKey = cypher.getPrivateKey();
+        },
+        encrypt() {
+            /*
+             * rsa算法加密时允许的明文长度：(keySize/8-11) byte
+             * 
+             * 1 byte = 8 bit
+             * 
+             * 1 bit    = 1  二进制数据
+             * 1 byte   = 8  bit
+             * 1 字母    = 1  byte = 8 bit
+             * 1 汉字    = 2  byte = 16 bit
+             */
+            if(undefined == this.publicKey || '' == this.publicKey) {
+                alert('请先生成/输入公钥')
+                // document.getElementsByTagName('textarea')[0].focus();
+                document.querySelectorAll('textarea')[0].focus();
+                return;
+            }
+            if(undefined == this.content || '' == this.content) {
+                alert('请输入需要加密的内容')
+                document.querySelectorAll('textarea')[2].focus();
+                return;
+            }
+            let jsEncrypt = new JSEncrypt();
+            jsEncrypt.setPublicKey(this.publicKey);
+            this.content = jsEncrypt.encrypt(this.content)
+        },
+        decrypt() {
+            if(undefined == this.privateKey || '' == this.privateKey) {
+                alert('请先生成/输入私钥')
+                document.querySelectorAll('textarea')[1].focus();
+                return;
+            }
+            if(undefined == this.content || '' == this.content) {
+                alert('请输入需要解密的内容')
+                document.querySelectorAll('textarea')[2].focus();
+                return;
+            }
+            let jsEncrypt = new JSEncrypt();
+            jsEncrypt.setPublicKey(this.privateKey);
+            this.content = jsEncrypt.decrypt(this.content)
+        },
+        sign() {
+            if(undefined == this.privateKey || '' == this.privateKey) {
+                alert('请先生成/输入私钥')
+                document.querySelectorAll('textarea')[1].focus();
+                return;
+            }
+            if(undefined == this.content || '' == this.content) {
+                alert('请输入需要签名的内容')
+                document.querySelectorAll('textarea')[2].focus();
+                return;
+            }
+            let jsEncrypt = new JSEncrypt();
+            jsEncrypt.setPublicKey(this.privateKey);
+            this.content = jsEncrypt.sign(this.content, CryptoJS.SHA256, 'sha256')
+        },
+        cancel() {
+            console.info('111====%s', this.signature);
+            this.signature = '';
+        },
+        verify() {
+            if(undefined == this.signature || '' == this.signature) {
+                this.$refs.taSign.focus();
+                return;
+            }
+            console.info('signature===========%s', this.signature)
+            if(undefined == this.publicKey || '' == this.publicKey) {
+                alert('请先生成/输入公钥')
+                document.querySelectorAll('textarea')[0].focus();
+                return;
+            }
+            if(undefined == this.content || '' == this.content) {
+                alert('请输入需要验签的内容')
+                document.querySelectorAll('textarea')[2].focus();
+                return;
+            }
+            let jsEncrypt = new JSEncrypt();
+            jsEncrypt.setPublicKey(this.publicKey);
+            let result = jsEncrypt.verify(this.content, this.signature, CryptoJS.SHA256)
+            let modal = new bootstrap.Modal(document.querySelector('#verifyAlert'))
+            if(result) {
+                // 通过
+                this.$refs.verifyResult.innerHTML = '<p>验签通过</p>'
+            } else {
+                // 失败
+                this.$refs.verifyResult.innerHTML = '<p class="text-danger">验签不通过</p>'
+            }
+            modal.show();
         }
     }
 }
