@@ -16,7 +16,7 @@
 
 - [x] RSA加解密/签名/验签
 
-- [ ] Hash计算
+- [x] Hash计算
 
 - [ ] 文件Hash计算
 
@@ -98,3 +98,7 @@ npm run build-dist:win
 ## RSA非对称加解密/签名/验签
 
 ![image-20220923171508700](https://imgbd.r-xnoro.com//image-20220923171508700.png)
+
+## Hash计算
+
+![image-20220926121326143](https://imgbd.r-xnoro.com//image-20220926121326143.png)
