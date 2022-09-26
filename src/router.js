@@ -8,6 +8,10 @@ const routes = [
         { type: 'node', name: 'aes', title: 'AES/DES/3DES', path: './component/aes.html', state: 0},
         { type: 'node', name: 'rsa', title: 'RSA非对称加解密/签名/验签', path: './component/rsa.html', state: 0}
     ]},
+    { type: 'group', name: '', title: '哈希/散列', group: [
+        { type: 'node', name: 'hash', title: 'Hash计算', path: './component/hash.html', state: 0},
+        { type: 'node', name: 'filehash', title: '文件Hash计算', path: './component/filehash.html', state: 0}
+    ]},
     { type: 'group', name: '', title: '图形码', group: [
         { type: 'node', name: 'barcode', title: '条形码', path: './component/barcode.html', state: 0 },
         { type: 'node', name: 'qrcode', title: '二维码', path: './component/qrcode.html', state: 0 }
