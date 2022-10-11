@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, Tray, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, Tray, ipcMain, dialog } = require('electron')
 const path = require('path')
 const package = require('./package.json')
 
@@ -43,7 +43,11 @@ const trayMenuTemplate = [{
     label: 'about',
     type: 'normal',
     click: function() {
-        alert('encoder');
+        dialog.showMessageBox({
+            type: 'info',
+            title: '关于',
+            message: package.name + ':' + package.version + '\n' + package.description + '\nnode:' + process.versions['node'] + '\nchrome:' + process.versions['chrome'] + '\nelectron:' + process.versions['electron']
+        });
     }
 }, {
     label: 'quit',
