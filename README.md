@@ -18,7 +18,7 @@
 
 - [x] Hash计算
 
-- [ ] 文件Hash计算
+- [x] 文件Hash计算
 
 - [x] 条形码生成器
 
@@ -102,3 +102,8 @@ npm run build-dist:win
 ## Hash计算
 
 ![image-20220926121326143](https://imgbd.r-xnoro.com//image-20220926121326143.png)
+
+## 文件Hash计算
+
+![image-20221011161700089](https://imgbd.r-xnoro.com//image-20221011161700089.png)
+
