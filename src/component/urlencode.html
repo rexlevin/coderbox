@@ -14,7 +14,7 @@
             <input type="text" class="form-control" v-model="parse.url" disabled>
         </div>
     </div>
-    <div class="row" v-if="parse.f==1">
+    <div class="row" v-if="parse.f==1 && parse.params.length > 0">
         <div class="col table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -30,6 +30,11 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="row" v-if="parse.f==1 && parse.params.length > 0">
+        <div class="col text-end">
+            <button type="button" class="btn btn-primary" @click="switchFormat('json')">将参数复制为json格式</button>
         </div>
     </div>
 </div>
@@ -77,8 +82,29 @@ const app = {
                 this.parse.params.push(j)
             }
             this.parse.f = 1;
+        },
+        switchFormat(format) {
+            let url = new URL(this.strUrl)
+            let kv = url.search.slice(1).split('&')
+            switch (format) {
+                case 'json':
+                    let j = formatJson(kv)
+                    navigator.clipboard.writeText(JSON.stringify(j));
+                    parent.notification({title: 'note', body: 'json复制成功'})
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
 Vue.createApp(app).mount('#app');
+function formatJson(kv) {
+    let j = {}
+    for(let p of kv) {
+        j[p.split('=')[0]] = p.split('=')[1]
+    }
+    console.info(j)
+    return j;
+}
 </script>
