@@ -16,5 +16,9 @@ const routes = [
     { type: 'group', name: '', title: '图形码', group: [
         { type: 'node', name: 'barcode', title: '条形码', path: './component/barcode.html', state: 0 },
         { type: 'node', name: 'qrcode', title: '二维码', path: './component/qrcode.html', state: 0 }
-    ]}
+    ]},
+    { type: 'group', name: '', title: 'Url', group: [
+        { type: 'node', name: 'urlparam', title: 'Url参数格式化', path: './component/urlencode.html', state: 0 },
+        { type: 'node', name: 'urlencode', title: 'Url编码/解码', path: '', state: 0 }
+    ] }
 ]

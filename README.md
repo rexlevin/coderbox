@@ -77,7 +77,7 @@ npm run build-dist:win
 
 ## 首页
 
-![image-20220919144743393](https://imgbd.r-xnoro.com//image-20220919144743393.png)
+![image-20221012162614635](https://imgbd.r-xnoro.com//image-20221012162614635.png)
 
 ## 中文/ASCii编码
 
@@ -115,3 +115,6 @@ npm run build-dist:win
 
 ![image-20221011161700089](https://imgbd.r-xnoro.com//image-20221011161700089.png)
 
+## Url参数解析
+
+![image-20221012162716784](https://imgbd.r-xnoro.com//image-20221012162716784.png)
