@@ -98,6 +98,9 @@ function refresh() {
 function devTools() {
     window.api.devTools();
 }
+function notification(option) {
+    window.api.notification(option);
+}
 
 function setRouteState(route, routes) {
     for(let j of routes) {
