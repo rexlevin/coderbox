@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<div class="container-fluid" id="app">
+    <div class="row pt-2">
+        <div class="col-1 text-end">原文：</div>
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strNative" cols="30" rows="10"></textarea></div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-1"></div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" @click="encode">Hex编码⇩</button>
+            <button type="button" class="btn btn-primary" style="margin-left:15px;" @click="decode">Hex解码⇧</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-1 text-end text-nowrap">密文：</div>
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strCypher" cols="30" rows="10"></textarea></div>
+    </div>
+</div>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../node_modules/crypto-js/crypto-js.js"></script>
+<script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script>
+const app = {
+    data() {
+        return {
+            strNative: '',
+            strCypher: ''
+        }
+    },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
+    },
+    methods: {
+        encode() {
+            // let str = CryptoJS.enc.Utf8.parse(this.strNative);
+            // this.strCypher = CryptoJS.enc.Base64.stringify(str);
+            console.info('strNative========%s', this.strNative)
+            if(this.strNative == '') return;
+            this.strCypher = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Utf8.parse(this.strNative));
+        },
+        decode() {
+            // let words  = CryptoJS.enc.Base64.parse(this.strCypher);
+            // this.strNative = words.toString(CryptoJS.enc.Utf8);
+            if(this.strCypher == '') return;
+            let words  = CryptoJS.enc.Hex.parse(this.strCypher);
+            this.strNative = words.toString(CryptoJS.enc.Utf8);
+        }
+    }
+}
+Vue.createApp(app).mount('#app');
+</script>
