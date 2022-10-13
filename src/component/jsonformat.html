@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<style>
+    .txtFont{font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;; font-size:16px;}
+</style>
+<div class="container-fluid" id="app">
+    <div class="row pt-2">
+        <div class="col">
+            <textarea class="form-control txtFont" style="resize:none" rows="20" id="txtJson" v-model="strJson"></textarea>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col text-end">
+            <button type="button" class="btn btn-primary" @click="copy('xml')">复制为xml</button>
+    </div>
+</div>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../node_modules/x2js/x2js.js"></script>
+<script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script>
+const app = {
+    data() {
+        return {
+            strJson: ''
+        }
+    },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
+    },
+    mounted() {
+        document.querySelector('#txtJson').focus();
+        document.querySelector('#txtJson').addEventListener('paste', (e) => {
+            e.preventDefault();
+            // console.info(this.strJson);
+            navigator.clipboard.readText().then(text => {
+                let content = text;
+                let tmp = eval("[" + content + "]");
+                this.strJson = JSON.stringify(tmp, null, 4);
+            });
+        });
+    },
+    methods: {
+        copy(name) {
+            let jsonObj = eval("[" + this.strJson + "]"), re
+            switch (name) {
+                case 'xml':
+                    let x2js = new X2JS();
+                    re = x2js.js2xml(jsonObj)
+                    console.info(re)
+                    navigator.clipboard.writeText(re)
+                    parent.notification({title: 'note', body: 'xml复制成功'})
+                    break;
+                case 'yaml':
+                    re = YAML.stringify(jsonObj)
+                    console.info(re)
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+Vue.createApp(app).mount('#app');
+</script>

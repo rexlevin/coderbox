@@ -36,9 +36,9 @@
 
 - [ ] JSON工具
 
-  - [ ] JSON格式化
+  - [x] JSON格式化
 
-  - [ ] JSON转xml
+  - [x] JSON转xml
 
   - [ ] JSON转yaml
 
@@ -61,14 +61,15 @@ npm i -D electron
 npm i vue bootstrap@5 @popperjs/core crypto-js jsbarcode qrcode jsencrypt
 ```
 
-| 依赖包                        | 说明       |
-| ----------------------------- | ---------- |
-| bootstrap@5<br>@popperjs/core | bootstrap5 |
+| 依赖包                        | 说明                                          |
+| ----------------------------- | --------------------------------------------- |
+| bootstrap@5<br>@popperjs/core | bootstrap5                                    |
 | bootstrap-icons               | [bootstrap图标库](https://icons.bootcss.com/) |
-| crypto-js                     | 加解密     |
-| jsbarcode                     | 条形码     |
-| qrcode                        | 二维码     |
-| jsencrypt                     | RSA加解密  |
+| crypto-js                     | 加解密                                        |
+| jsbarcode                     | 条形码                                        |
+| qrcode                        | 二维码                                        |
+| jsencrypt                     | RSA加解密                                     |
+| x2js                          | xml、json互转                                 |
 
 # 发行版打包
 
@@ -130,3 +131,7 @@ npm run build-dist:win
 ## Url编码
 
 ![image-20221013103748269](https://imgbd.r-xnoro.com//image-20221013103748269.png)
+
+## JSON解析
+
+![image-20221013162554148](https://imgbd.r-xnoro.com//image-20221013162554148.png)
