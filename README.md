@@ -6,13 +6,15 @@
 
 - [x] 随机串/密码生成器
 
-- [x] 中文/ASCii互转
+- [x] 编码转换
 
-- [x] 中文/UTF-8互转
+  - [x] 中文/ASCii互转
 
-- [x] Base64编码/解码
+  - [x] 中文/UTF-8互转
 
-- [x] Hex编码解码
+  - [x] Base64编码/解码
+
+  - [x] Hex编码解码
 
 - [x] AES/DES/3DES加解密
 
@@ -26,11 +28,19 @@
 
 - [x] 二维码生成器
 
-- [x] Url
+- [x] Url工具
 
   - [x] Url 参数解析
 
   - [x] Url 编码
+
+- [ ] JSON工具
+
+  - [ ] JSON格式化
+
+  - [ ] JSON转xml
+
+  - [ ] JSON转yaml
 
 # 开发
 
@@ -79,25 +89,23 @@ npm run build-dist:win
 
 ![image-20221012162614635](https://imgbd.r-xnoro.com//image-20221012162614635.png)
 
-## 中文/ASCii编码
-
-![image-20220913152703258](https://imgbd.r-xnoro.com//image-20220913152703258.png)
-
-## 中文/UTF-8编码
-
-![image-20220913162817293](https://imgbd.r-xnoro.com//image-20220913162817293.png)
-
-## Base64编码/解码
-
-![image-20220913170027407](https://imgbd.r-xnoro.com//image-20220913170027407.png)
-
 ## 随机数/密码生成器
 
 ![image-20220913152551500](https://imgbd.r-xnoro.com//image-20220913152551500.png)
 
+## 编码转换
+
+![image-20221013142832647](https://imgbd.r-xnoro.com//image-20221013142832647.png)
+
 ## 条形码
 
 ![image-20220915145849226](https://imgbd.r-xnoro.com//image-20220915145849226.png)
+
+## 二维码
+
+![image-20221013143010336](https://imgbd.r-xnoro.com//image-20221013143010336.png)
+
+![image-20221013143051974](https://imgbd.r-xnoro.com//image-20221013143051974.png)
 
 ## 对称加密
 

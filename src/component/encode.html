@@ -1,0 +1,169 @@
+<link rel="stylesheet" href="../index.css">
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<div class="container-fluid" id="app">
+    <div class="row pt-2">
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strNative" cols="30" rows="10"></textarea></div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-2">
+            <select class="form-select" v-model="digest" @change="selChange">
+                <option v-for="(d, i) in digests" :value="d.name">{{d.title}}</option>
+            </select>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" @click="encode">编码&nbsp;⇩</button>
+            <button type="button" class="btn btn-primary" style="margin-left:15px;" @click="decode">恢复&nbsp;⇧</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strCypher" cols="30" rows="10"></textarea></div>
+    </div>
+</div>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../node_modules/crypto-js/crypto-js.js"></script>
+<script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script>
+const app = {
+    data() {
+        return {
+            digests: [
+                {name: 'ascii', title: '中文/ASCii'},
+                {name: 'utf8', title: '中文/UTF-8'},
+                {name: 'base64', title: 'Base64编码'},
+                {name: 'hex', title: 'Hex编码'}
+            ],
+            digest: 'ascii',
+            strNative: '',
+            strCypher: '',
+        }
+    },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
+    },
+    methods: {
+        encode() {
+            if(this.strNative == '') return;
+            switch (this.digest) {
+                case 'ascii':
+                    let encoder = AsciiEncoder.newInstance()
+                    this.strCypher = encoder.n2c(this.strNative)
+                    break;
+                case 'utf8':
+                    this.strCypher = this.strNative.replace(/[^\u0000-\u00FF]/g, ($0) => {
+                        return escape($0).replace(/(%u)(\w{4})/gi, "&#x$2;");
+                    });
+                    break;
+                case 'base64':
+                    let str = CryptoJS.enc.Utf8.parse(this.strNative);
+                    this.strCypher = CryptoJS.enc.Base64.stringify(str);
+                    break;
+                case 'hex':
+                    this.strCypher = CryptoJS.enc.Hex.stringify(CryptoJS.enc.Utf8.parse(this.strNative));
+                    break;
+                default:
+                    break;
+            }
+        },
+        decode() {
+            if(this.strCypher == '') return;
+            let words = '';
+            switch (this.digest) {
+                case 'ascii':
+                    let encoder = AsciiEncoder.newInstance()
+                    this.strNative = encoder.c2n(this.strCypher)
+                    break;
+                case 'utf8':
+                    this.strNative = unescape(this.strCypher.replace(/&#x/g, '%u').replace(/;/g, ''));
+                    break;
+                case 'base64':
+                    words = CryptoJS.enc.Base64.parse(this.strCypher);
+                    this.strNative = words.toString(CryptoJS.enc.Utf8);
+                    break;
+                case 'hex':
+                    words = CryptoJS.enc.Hex.parse(this.strCypher);
+                    this.strNative = words.toString(CryptoJS.enc.Utf8);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+Vue.createApp(app).mount('#app');
+
+let AsciiEncoder = {
+
+    newInstance: function() {
+
+        let encoder = {};
+
+        let keyStr = "ABCDEFGHIJKLMNOP" +
+            "QRSTUVWXYZabcdef" +
+            "ghijklmnopqrstuv" +
+            "wxyz0123456789+/" +
+            "=";
+        let hexChars = "0123456789ABCDEF";
+
+        encoder.n2c = function(strNative) {
+            let strAscii = '';
+            for (let i = 0; i < strNative.length; i++) {
+                let c = strNative.charAt(i);
+                let cc = strNative.charCodeAt(i);
+                if (cc > 0xff)
+                strAscii += "\\u" + toHex(cc >> 8) + toHex(cc & 0xff);
+                else
+                strAscii += c;
+            }
+            return strAscii;
+        }
+        encoder.c2n = function(strAscii) {
+            let strNative = "";
+            let posFrom = 0;
+            let posTo = strAscii.indexOf("\\u", posFrom);
+            while (posTo >= 0) {
+                strNative += strAscii.substring(posFrom, posTo);
+                strNative += toChar(strAscii.substr(posTo, 6));
+                posFrom = posTo + 6;
+                posTo = strAscii.indexOf("\\u", posFrom);
+            }
+            strNative += strAscii.substr(posFrom);
+            return strNative;
+        }
+
+        function toChar(str) {
+            if (str.substr(0, 2) != "\\u") return str;
+
+            let code = 0;
+            for (let i = 2; i < str.length; i++) {
+                let cc = str.charCodeAt(i);
+                if (cc >= 0x30 && cc <= 0x39)
+                    cc = cc - 0x30;
+                else if (cc >= 0x41 && cc <= 0x5A)
+                    cc = cc - 0x41 + 10;
+                else if (cc >= 0x61 && cc <= 0x7A)
+                    cc = cc - 0x61 + 10;
+
+                code <<= 4;
+                code += cc;
+            }
+            if (code < 0xff) return str;
+            return String.fromCharCode(code);
+        }
+
+        function toHex(n) {
+            let nH = (n >> 4) & 0x0f;
+            let nL = n & 0x0f;
+            return hexChars.charAt(nH) + hexChars.charAt(nL);
+        }
+
+        return encoder;
+    }
+}
+</script>
