@@ -18,7 +18,7 @@ const routes = [
         { type: 'node', name: 'qrcode', title: '二维码', path: './component/qrcode.html', state: 0 }
     ]},
     { type: 'group', name: '', title: 'Url', group: [
-        { type: 'node', name: 'urlparam', title: 'Url参数解析', path: './component/urlencode.html', state: 0 },
-        { type: 'node', name: 'urlencode', title: 'Url编码/解码', path: '', state: 0 }
+        { type: 'node', name: 'urlparam', title: 'Url参数解析', path: './component/urlparams.html', state: 0 },
+        { type: 'node', name: 'urlencode', title: 'Url编码/解码', path: './component/urlencode.html', state: 0 }
     ] }
 ]

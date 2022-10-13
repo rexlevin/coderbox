@@ -28,9 +28,9 @@
 
 - [ ] Url
 
-  - [ ] Url 参数解析
+  - [x] Url 参数解析
 
-  - [ ] Url 编码/解码
+  - [x] Url 编码/解码
 
 # 开发
 
@@ -118,3 +118,7 @@ npm run build-dist:win
 ## Url参数解析
 
 ![image-20221012162716784](https://imgbd.r-xnoro.com//image-20221012162716784.png)
+
+## Url编码
+
+![image-20221013103748269](https://imgbd.r-xnoro.com//image-20221013103748269.png)
