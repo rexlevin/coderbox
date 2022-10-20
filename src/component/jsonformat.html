@@ -11,11 +11,14 @@
     </div>
     <div class="row mt-2">
         <div class="col text-end">
-            <button type="button" class="btn btn-primary" @click="copy('xml')">复制为xml</button>
+            <button type="button" class="btn btn-primary" @click="copy('xml')">复制为xml</button>&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" @click="copy('yaml')">复制为yaml</button>
+        </div>
     </div>
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../node_modules/x2js/x2js.js"></script>
+<script src="../lib/json2yaml.js"></script>
 <script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
 <script>
 const app = {
@@ -41,29 +44,28 @@ const app = {
             // console.info(this.strJson);
             navigator.clipboard.readText().then(text => {
                 let content = text;
-                let tmp = eval("[" + content + "]");
+                let tmp = eval("(" + content + ")");
+                // let tmp = eval(content)
                 this.strJson = JSON.stringify(tmp, null, 4);
             });
         });
     },
     methods: {
         copy(name) {
-            let jsonObj = eval("[" + this.strJson + "]"), re
-            switch (name) {
-                case 'xml':
+            let jsonObj = eval("(" + this.strJson + ")"), re
+            const handlers = {
+                'xml': function(jsonObj) {
                     let x2js = new X2JS();
                     re = x2js.js2xml(jsonObj)
-                    console.info(re)
-                    navigator.clipboard.writeText(re)
-                    parent.notification({title: 'note', body: 'xml复制成功'})
-                    break;
-                case 'yaml':
-                    re = YAML.stringify(jsonObj)
-                    console.info(re)
-                    break;
-                default:
-                    break;
+                },
+                'yaml': function() {
+                    let yaml = new YAML();
+                    re = yaml.j2y(jsonObj)
+                }
             }
+            handlers[name](jsonObj)
+            navigator.clipboard.writeText(re)
+            parent.notification({title: 'note', body: `${name}格式内容已经复制到剪贴板`})
         }
     }
 }
