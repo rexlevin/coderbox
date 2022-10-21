@@ -3,4 +3,6 @@ node_modules/
 .vscode/
 dist/
 src/component/template.html
-src/lib/
+
+src/lib/*
+!src/lib/json2yaml.js
