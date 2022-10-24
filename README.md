@@ -45,7 +45,10 @@
 # 开发
 
 ```bash
-git clone
+# gitee
+git clone https://gitee.com/rexlevin/coderbox.git
+# github
+git clone https://github.com/rexlevin/coderbox.git
 
 cd coderbox
 npm i
