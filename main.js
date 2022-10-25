@@ -85,5 +85,5 @@ ipcMain.on('exit', () => {
     app.quit();
 });
 ipcMain.on('title', (e, arg) => {
-    e.reply('title-reply', package['description'] + ' -v' + package.version);
+    e.reply('title-reply', package.name + ' - ' + package['description'] + ' - v' + package.version);
 });
