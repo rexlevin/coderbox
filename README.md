@@ -2,6 +2,8 @@
 
 这是一个基于electron的跨平台的开发小工具集
 
+下载地址：https://docs.r-xnoro.com/coderbox/
+
 # 功能/计划
 
 - [x] 随机串/密码生成器
