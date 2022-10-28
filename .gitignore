@@ -5,4 +5,5 @@ dist/
 src/component/template.html
 
 src/lib/*
-!src/lib/json2yaml.js
+!src/lib/json.yaml.js
+!src/lib/json.minify.js
