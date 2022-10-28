@@ -11,6 +11,9 @@
     </div>
     <div class="row mt-2">
         <div class="col text-end">
+            <button type="button" class="btn btn-primary" @click="format">格式化JSON</button>&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" @click="minify">压缩JSON</button>&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" @click="copy('')">复制结果</button>&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-primary" @click="copy('xml')">复制为xml</button>&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-primary" @click="copy('yaml')">复制为yaml</button>
         </div>
@@ -18,13 +21,15 @@
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../node_modules/x2js/x2js.js"></script>
-<script src="../lib/json2yaml.js"></script>
+<script src="../lib/json.yaml.js"></script>
+<script src="../lib/json.minify.js"></script>
 <script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
 <script>
 const app = {
     data() {
         return {
-            strJson: ''
+            strJson: '',
+            operation: ''
         }
     },
     created() {
@@ -39,19 +44,34 @@ const app = {
     },
     mounted() {
         document.querySelector('#txtJson').focus();
-        document.querySelector('#txtJson').addEventListener('paste', (e) => {
-            e.preventDefault();
-            // console.info(this.strJson);
-            navigator.clipboard.readText().then(text => {
-                let content = text;
-                let tmp = eval("(" + content + ")");
-                // let tmp = eval(content)
-                this.strJson = JSON.stringify(tmp, null, 4);
-            });
-        });
+        // document.querySelector('#txtJson').addEventListener('paste', (e) => {
+        //     e.preventDefault();
+        //     // console.info(this.strJson);
+        //     navigator.clipboard.readText().then(text => {
+        //         let content = text;
+        //         let tmp = eval("(" + content + ")");
+        //         // let tmp = eval(content)
+        //         this.strJson = JSON.stringify(tmp, null, 4);
+        //     });
+        // });
     },
     methods: {
+        format() {
+            this.operation = 'format'
+            let tmp = eval("(" + this.strJson + ")");
+            this.strJson = JSON.stringify(tmp, null, 4);
+        },
+        minify() {
+            this.operation = 'minify'
+            this.strJson = JSON.minify(this.strJson)
+        },
         copy(name) {
+            if('' == name || undefined == name) {
+                let title = this.operation == 'format' ? '格式化' : '压缩'
+                navigator.clipboard.writeText(this.strJson)
+                parent.notification({title: 'note', body: title + '结果内容已经复制到剪贴板'})
+                return;
+            }
             let jsonObj = eval("(" + this.strJson + ")"), re
             const handlers = {
                 'xml': function(jsonObj) {

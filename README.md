@@ -44,7 +44,7 @@
 
   - [x] JSON转yaml
 
-  - [ ] JSON压缩
+  - [x] JSON压缩
 
 # 开发
 
@@ -95,7 +95,7 @@ npm run build-dist:win
 
 ## 首页
 
-![image-20221012162614635](https://imgbd.r-xnoro.com//image-20221012162614635.png)
+![image-20221028113933148](https://imgbd.r-xnoro.com//image-20221028113933148.png)
 
 ## 随机数/密码生成器
 
@@ -141,4 +141,4 @@ npm run build-dist:win
 
 ## JSON解析
 
-![image-20221020152039154](https://imgbd.r-xnoro.com//image-20221020152039154.png)
+![image-20221028113905518](https://imgbd.r-xnoro.com//image-20221028113905518.png)

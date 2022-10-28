@@ -1,6 +1,9 @@
-/*
+/*!
  * 2022-10-20 by lizl6
+ * MIT License
  *
+ * /
+/**
  * json转yaml工具
  * 
  * let yaml = new Yaml()
