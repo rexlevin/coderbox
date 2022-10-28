@@ -44,6 +44,8 @@
 
   - [x] JSON转yaml
 
+  - [ ] JSON压缩
+
 # 开发
 
 ```bash
