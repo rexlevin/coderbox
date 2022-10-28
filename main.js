@@ -1,4 +1,5 @@
 const { app, BrowserWindow, Menu, Tray, ipcMain, dialog } = require('electron')
+const Store = require('electron-store');
 const path = require('path')
 const package = require('./package.json')
 
@@ -6,6 +7,7 @@ const package = require('./package.json')
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let win;
+const store = new Store();
 
 app.whenReady().then(() => {
     createTray();
@@ -31,7 +33,24 @@ const createWindow = () => {
         useContentSize: true
     });
     win.loadFile('./src/index.html');
+    
+    // 启动恢复主窗口位置和大小
+    let position = store.get('mainPosition')
+    if(!('' == position || undefined == position)) {
+        win.setContentBounds(position)
+    }
+
+    // 关闭主窗口事件，记录窗口大小和位置
+    win.on('close', (e) => {
+        console.info('close main window, we need record postion of mainWindow and it\'s size');
+        // todo
+        let position = win.getContentBounds()
+        // console.info('position======%s=======%s', position, typeof position);
+        // console.info(app.getPath('userData'));
+        store.set('mainPosition', position)
+    });
 }
+
 
 const createTray = () => {
     tray = new Tray(path.join(__dirname, './src/logo.png'));
