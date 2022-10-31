@@ -18,5 +18,6 @@ const routes = [
         { type: 'node', name: 'urlparam', title: 'Url参数解析', path: './component/urlparams.html', state: 0 },
         { type: 'node', name: 'urlencode', title: 'Url编码', path: './component/urlencode.html', state: 0 }
     ] },
-    {type: 'node', name: 'jsonTools', title: 'JSON工具', path: './component/jsonTools.html', state: 0}
+    {type: 'node', name: 'jsonTools', title: 'JSON工具', path: './component/jsonTools.html', state: 0},
+    {type: 'win', name: 'http', title: 'HTTP请求工具', window: 'windowHttp', state: 0}
 ]

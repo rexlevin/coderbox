@@ -25,6 +25,7 @@ const createWindow = () => {
         height: 700,
         minWidth: 1000,
         minHeight: 700,
+        frame: true,
         icon: path.join(__dirname, './src/logo.png'),
         webPreferences: {
             preload: path.join(__dirname, './src/preload.js'),
@@ -105,4 +106,18 @@ ipcMain.on('exit', () => {
 });
 ipcMain.on('title', (e, arg) => {
     e.reply('title-reply', package.name + ' - ' + package['description'] + ' - v' + package.version);
+});
+ipcMain.on('windowHttp', (e, title) => {
+    let winHttp = new BrowserWindow({
+        width: 1100,
+        height: 800,
+        minWidth: 1100,
+        minHeight: 800,
+        frame: true,
+        title: title,
+        // parent: win
+        parent: null
+    });
+    winHttp.loadFile('./src/component/http.html');
+    winHttp.on('closed',()=>{winHttp = null})
 });

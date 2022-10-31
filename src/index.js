@@ -62,6 +62,13 @@ const app = {
                     link.addEventListener('click', () => {this.to(route.name)});
                     link.id = route.name
                     li.appendChild(link)
+                } else if(route.type == 'win') {
+                    link.addEventListener('click', () => {
+                        window.api.openWindow(route.window, route.title)
+                        // this.to(route.name)
+                    });
+                    link.id = route.name
+                    li.appendChild(link)
                 } else {
                     li.classList.add('dropdown')
                     link.classList.add('dropdown-toggle')
@@ -100,6 +107,9 @@ function devTools() {
 }
 function notification(option) {
     window.api.notification(option);
+}
+function openWindow(win, title) {
+    window.api.openWindow(win, title)
 }
 
 function setRouteState(route, routes) {
