@@ -2,8 +2,8 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld(
     'api', {
-        openWindow: (window, title) => {
-            ipcRenderer.send(window, title)
+        openWindow: (window, title, path) => {
+            ipcRenderer.send(window, title, path)
         },
         devTools: () => {ipcRenderer.send('devTools');},
         reload: () => {ipcRenderer.send('reload');},
