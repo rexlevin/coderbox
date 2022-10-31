@@ -63,7 +63,7 @@ function drawNavigator(selector, routes) {
             li.id = route.name
         } else if(route.type == 'win') {
             li.addEventListener('click', ()=>{
-                parent.openWindow(route.window, route.title)
+                parent.openWindow(route.window, route.title, route.path)
             })
             li.style.cursor = 'pointer'
             li.id = route.name

@@ -107,7 +107,7 @@ ipcMain.on('exit', () => {
 ipcMain.on('title', (e, arg) => {
     e.reply('title-reply', package.name + ' - ' + package['description'] + ' - v' + package.version);
 });
-ipcMain.on('windowHttp', (e, title) => {
+ipcMain.on('windowHttp', (e, title, filePath) => {
     let winHttp = new BrowserWindow({
         width: 1100,
         height: 800,
@@ -118,6 +118,6 @@ ipcMain.on('windowHttp', (e, title) => {
         // parent: win
         parent: null
     });
-    winHttp.loadFile('./src/component/http.html');
+    winHttp.loadFile(path.join(__dirname, './src', filePath));
     winHttp.on('closed',()=>{winHttp = null})
 });

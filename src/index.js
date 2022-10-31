@@ -64,7 +64,7 @@ const app = {
                     li.appendChild(link)
                 } else if(route.type == 'win') {
                     link.addEventListener('click', () => {
-                        window.api.openWindow(route.window, route.title)
+                        window.api.openWindow(route.window, route.title, route.path)
                         // this.to(route.name)
                     });
                     link.id = route.name
@@ -108,8 +108,8 @@ function devTools() {
 function notification(option) {
     window.api.notification(option);
 }
-function openWindow(win, title) {
-    window.api.openWindow(win, title)
+function openWindow(win, title, path) {
+    window.api.openWindow(win, title, path)
 }
 
 function setRouteState(route, routes) {
