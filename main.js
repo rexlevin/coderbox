@@ -107,8 +107,14 @@ ipcMain.on('exit', () => {
 ipcMain.on('title', (e, arg) => {
     e.reply('title-reply', package.name + ' - ' + package['description'] + ' - v' + package.version);
 });
+
+let winHttp;
 ipcMain.on('windowHttp', (e, title, filePath) => {
-    let winHttp = new BrowserWindow({
+    if(null != winHttp && undefined != winHttp) {
+        winHttp.show();
+        return;
+    }
+    winHttp = new BrowserWindow({
         width: 1100,
         height: 800,
         minWidth: 1100,
@@ -119,5 +125,6 @@ ipcMain.on('windowHttp', (e, title, filePath) => {
         parent: null
     });
     winHttp.loadFile(path.join(__dirname, './src', filePath));
+    winHttp.webContents.openDevTools();
     winHttp.on('closed',()=>{winHttp = null})
 });

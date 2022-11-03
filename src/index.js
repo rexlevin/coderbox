@@ -114,7 +114,7 @@ function openWindow(win, title, path) {
 
 function setRouteState(route, routes) {
     for(let j of routes) {
-        if(j.type == 'node') {
+        if(j.type == 'node' || j.type == 'win') {
             if(route.name == j.name) {
                 j.state = 1;
             } else {
@@ -129,7 +129,7 @@ function setRouteState(route, routes) {
 function getRoute(name, routes) {
     let r = '';
     for(let j of routes) {
-        if(j.type == 'node') {
+        if(j.type == 'node' || j.type == 'win') {
             if(name == j['name']) {
                 if(1 == j['state']) {
                     break;
