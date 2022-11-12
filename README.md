@@ -135,7 +135,7 @@ npm run build-dist:win
 
 ## Url参数解析
 
-![image-20221012162716784](https://imgbd.r-xnoro.com//image-20221012162716784.png)
+![image-20221112131506069](https://imgbd.r-xnoro.com//image-20221112131506069.png)
 
 ## Url编码
 
