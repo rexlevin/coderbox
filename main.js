@@ -132,6 +132,6 @@ ipcMain.on('windowHttp', (e, title, filePath) => {
         }
     });
     winHttp.loadFile(path.join(__dirname, './src', filePath));
-    winHttp.webContents.openDevTools();
+    // winHttp.webContents.openDevTools();
     winHttp.on('closed',()=>{winHttp = null})
 });
