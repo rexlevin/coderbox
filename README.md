@@ -46,7 +46,7 @@
 
   - [x] JSON压缩
 
-- [ ] HTTP请求工具
+- [x] HTTP请求工具
 
 # 开发
 
@@ -97,7 +97,7 @@ npm run build-dist:win
 
 ## 首页
 
-![image-20221028113933148](https://imgbd.r-xnoro.com//image-20221028113933148.png)
+![image-20221113202935222](https://imgbd.r-xnoro.com//image-20221113202935222.png)
 
 ## 随机数/密码生成器
 
@@ -144,3 +144,7 @@ npm run build-dist:win
 ## JSON解析
 
 ![image-20221028113905518](https://imgbd.r-xnoro.com//image-20221028113905518.png)
+
+## HTTP请求工具
+
+![image-20221113203033459](https://imgbd.r-xnoro.com//image-20221113203033459.png)

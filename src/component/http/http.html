@@ -9,21 +9,30 @@
         /* 将默认body 的margin值改为0，当内容出现滚动条则不包含margin部分 */
         html, body{background-color: #e7eaed; height:100%; margin: 0 !important;}
         html{font-family: Arial, Helvetica, sans-serif; font-size:16px;}
+        table {width: 100%;}
+        table thead {display: block; width: 100%;}
+        table tbody {display: block; width: 100%; height: 270px; overflow-y: auto;}
+        table thead, tbody tr {display: table; width: 100%; table-layout: fixed;}
     </style>
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body style="height:100%">
     <div id="app" class="container-fluid h-100">
+        <!-- <form role="form" style="height: 100%;"> -->
         <div class="row pt-4">
             <div class="col input-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">GET</button>
+                <button type="button" class="btn btn-primary dropdown-toggle" style="width:120px" data-bs-toggle="dropdown">{{chooseMethod.title}}</button>
                 <ul class="dropdown-menu">
-                    <li v-for="(item, index) in httpMethods"><a href="#" class="dropdown-item">{{item.title}}</a></li>
+                    <li v-for="(item, index) in httpMethods" @click="myChoose(item.name)"><a href="#" class="dropdown-item">{{item.title}}</a></li>
                 </ul>
-                <input type="text" class="form-control" placeholder="Enter Request URL">
+                <!-- <select class="form-control">
+                    <option v-for="(item, index) in httpMethods">{{item.title}}</option>
+                </select> -->
+                <input type="text" class="form-control" v-model="myUrl" placeholder="Enter Request URL">
             </div>
             <div class="col-1">
-                <button type="button" class="btn btn-primary">Send</button>
+                <button type="button" class="btn btn-primary" @click="sendRequest">Send</button>
             </div>
         </div>
         <div class="row mt-2">
@@ -35,53 +44,89 @@
                 </ul>
             </div>
         </div>
-        <div class="row mt-2">
+        <div class="row mt-2" style="height: 320px;">
             <div class="col">
-                <div class="tab-content">
-                    <div id="header" class="container tab-pane fade">asdfasdf</div>
-                    <div id="params" class="container tab-pane active">
+                <div class="tab-content" style="width: 100%;">
+                    <!-- header -->
+                    <div id="header" class="container-fluid tab-pane fade" style="width: 100%; margin-left: 0; margin-right: 0;">
                         <div class="row">
                             <div class="col">
                                 <table class="table table-hover">
                                     <thead>
-                                        <tr>
-                                            <td></td>
-                                            <td>Key</td>
-                                            <td>Value</td>
-                                            <td>Description</td>
-                                        </tr>
+                                        <td style="width: 50px;">&nbsp;</td>
+                                        <td>Key</td>
+                                        <td>Value</td>
+                                        <td>Description</td>
+                                        <td style="width: 50px;"><i class="bi bi-plus-circle" style="font-size:1.5rem; cursor: pointer;" @click="addItem('header')"></i></td>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, index) in params">
-                                            <td><input class="form-check-input" type="checkbox" value="something" :checked="item.state"></td>
-                                            <td><input type="text" class="form-control" v-model="item.key"></td>
+                                        <tr v-for="(item, index) in headers" class="align-item-center">
+                                            <td style="vertical-align:middle; width: 50px;"><input class="form-check-input" type="checkbox" :checked="item.state" :id="'ckb-' + item.id"></td>
+                                            <td><input type="text" class="form-control width-50" v-model="item.key" :ref="'key-' + item.id"></td>
                                             <td><input type="text" class="form-control" v-model="item.value"></td>
                                             <td><input type="text" class="form-control" v-model="item.description"></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td style="width: 50px;"><i class="bi bi-trash" style="font-size:1.5rem; cursor: pointer;" @click="deleteItem('header',item.id)"></i></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div id="body" class="container tab-pane fade">
+                    <!-- params -->
+                    <div id="params" class="container-fluid tab-pane active" style="width: 100%; margin-left: 0; margin-right: 0;">
                         <div class="row">
                             <div class="col">
-                                <textarea class="form-control" cols="30" rows="10"></textarea>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr class="align-items-center">
+                                            <td style="width: 50px;">&nbsp;</td>
+                                            <td>Key</td>
+                                            <td>Value</td>
+                                            <td>Description</td>
+                                            <td style="width: 50px;"><i class="bi bi-plus-circle" style="font-size:1.5rem; cursor: pointer;" @click="addItem('param')"></i></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in params" class="align-items-center">
+                                            <td style="vertical-align:middle; width: 50px;"><input class="form-check-input" type="checkbox" :checked="item.state" :id="'ckb-' + item.id"></td>
+                                            <td><input type="text" class="form-control width-50" v-model="item.key" :ref="'key-' + item.id"></td>
+                                            <td><input type="text" class="form-control" v-model="item.value"></td>
+                                            <td><input type="text" class="form-control" v-model="item.description"></td>
+                                            <td style="width: 50px;"><i class="bi bi-trash" style="font-size:1.5rem; cursor: pointer;" @click="deleteItem('param', item.id)"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- body -->
+                    <div id="body" class="container-fluid tab-pane fade" style="width: 100%; margin-left: 0; margin-right: 0;">
+                        <div class="row">
+                            <div class="col">
+                                <textarea class="form-control" v-model="myBody" rows="13" style="resize: none;" style="width: 100%;"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row mt-2">
+            <div class="col" style="height: 100%;">
+                <div class="container-fluid border-top" style="height: 100%;">
+                    <div class="row">
+                        <div class="col">{{myResponse.title}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">{{myResponse.content}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- </form> -->
     </div>
     <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../../node_modules/vue/dist/vue.global.prod.js"></script>
+    <script src="../../../node_modules/axios/dist/axios.min.js"></script>
     <script src="http.js"></script>
 </body>
 </html>

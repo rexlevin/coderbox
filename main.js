@@ -34,6 +34,9 @@ const createWindow = () => {
         useContentSize: true
     });
     win.loadFile('./src/index.html');
+
+    // 打开开发者窗口
+    // win.webContents.openDevTools();
     
     // 启动恢复主窗口位置和大小
     let position = store.get('mainPosition')
@@ -122,7 +125,11 @@ ipcMain.on('windowHttp', (e, title, filePath) => {
         frame: true,
         title: title,
         // parent: win
-        parent: null
+        parent: null,
+        webPreferences: {
+            preload: path.join(__dirname, './src/preload.js'),
+            spellcheck: false
+        }
     });
     winHttp.loadFile(path.join(__dirname, './src', filePath));
     winHttp.webContents.openDevTools();
