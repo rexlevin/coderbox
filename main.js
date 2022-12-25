@@ -20,38 +20,50 @@ app.on('window-all-closed', () => {
 
 const createWindow = () => {
     Menu.setApplicationMenu(null);
-    win = new BrowserWindow({
-        width: 1000,
-        height: 700,
-        minWidth: 1000,
-        minHeight: 700,
-        frame: true,
-        icon: path.join(__dirname, './src/logo.png'),
-        webPreferences: {
-            preload: path.join(__dirname, './src/preload.js'),
-            spellcheck: false
-        },
-        useContentSize: true
-    });
+
+    // 启动恢复主窗口位置和大小
+    let isMax = store.get('isMax') ? true : false
+        , position = store.get('mainPosition')
+        , config = {};
+    if(!isMax && !('' == position || undefined == position)) {
+        // win.setContentBounds(position)
+        config.width = position.width;
+        config.height = position.height;
+        config.minWidth = position.width;
+        config.minHeight = position.height;
+        config.x = position.x;
+        config.y = position.y;
+    } else if(!isMax && ('' == position || undefined == position)) {
+        config.width = 1000;
+        config.height = 700;
+        config.minWidth = 1000;
+        config.minHeight = 700;
+    }
+    config.icon = path.join(__dirname, './src/logo.png');
+    config.webPreferences = {
+        preload: path.join(__dirname, './src/preload.js'),
+        spellcheck: false
+    }
+    config.useContentSize = true;
+
+    win = new BrowserWindow(config);
+    if(isMax) win.maximize();
     win.loadFile('./src/index.html');
 
     // 打开开发者窗口
     // win.webContents.openDevTools();
     
     // 启动恢复主窗口位置和大小
-    let position = store.get('mainPosition')
-    if(!('' == position || undefined == position)) {
-        win.setContentBounds(position)
-    }
+    // let position = store.get('mainPosition')
+    // if(!('' == position || undefined == position)) {
+    //     win.setContentBounds(position)
+    // }
 
     // 关闭主窗口事件，记录窗口大小和位置
     win.on('close', (e) => {
         console.info('close main window, we need record postion of mainWindow and it\'s size');
-        // todo
-        let position = win.getContentBounds()
-        // console.info('position======%s=======%s', position, typeof position);
-        // console.info(app.getPath('userData'));
-        store.set('mainPosition', position)
+        store.set('isMax', win.isMaximized())
+        store.set('mainPosition', win.getContentBounds())
     });
 }
 
