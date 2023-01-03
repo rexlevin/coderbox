@@ -25,6 +25,12 @@
       "target": [
         "nsis"
       ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "shortcutName": "CoderBox工具箱"
     }
   },
   "keywords": [
