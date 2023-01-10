@@ -8,3 +8,4 @@ body{
     -ms-user-select: none;
     user-select: none;
 }
+.form-control:focus{outline:none; box-shadow: none; -webkit-box-shadow:none;}
