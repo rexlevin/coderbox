@@ -29,19 +29,16 @@ const createWindow = () => {
         , position = store.get('mainPosition')
         , config = {};
     if(!isMax && !('' == position || undefined == position)) {
-        // win.setContentBounds(position)
         config.width = position.width;
         config.height = position.height;
-        config.minWidth = position.width;
-        config.minHeight = position.height;
         config.x = position.x;
         config.y = position.y;
     } else if(!isMax && ('' == position || undefined == position)) {
-        config.width = 1000;
+        config.width = 900;
         config.height = 700;
-        config.minWidth = 1000;
-        config.minHeight = 700;
     }
+    config.minWidth = 900;
+    config.minHeight = 700;
     config.icon = path.join(__dirname, './src/logo.png');
     config.webPreferences = {
         preload: path.join(__dirname, './src/preload.js'),
