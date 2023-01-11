@@ -2,12 +2,12 @@
 <link rel="stylesheet" href="../index.css">
 <div class="container-fluid" id="app">
     <div class="row pt-2">
-        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strUrl" rows="6" placeholder="请输入url"></textarea></div>
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strUrl" rows="6" placeholder="请输入url"></textarea></div>
     </div>
     <div class="row mt-3">
         <div class="col text-center">
-            <button type="button" class="btn btn-secondary" @click="clear">全部清空</button>&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" @click="encode">URL编码</button>
+            <button type="button" class="btn btn-secondary btn-sm" @click="clear">全部清空</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" @click="encode">URL编码</button>
         </div>
     </div>
     <div class="row mt-2">
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strEncode" rows="5"></textarea></div>
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strEncode" rows="5"></textarea></div>
     </div>
     <div class="row mt-2">
         <div class="col">
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strEncodeCom" rows="5"></textarea></div>
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strEncodeCom" rows="5"></textarea></div>
     </div>
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -9,7 +9,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <textarea class="form-control" v-model="publicKey" style="resize:none;color:grey" rows="8"></textarea>
+                    <textarea class="form-control form-control-sm" v-model="publicKey" style="resize:none;color:grey" rows="8"></textarea>
                 </div>
             </div>
         </div>
@@ -17,14 +17,14 @@
             <div class="row"><div class="col">&nbsp;</div></div>
             <div class="row">
                 <div class="col">
-                    <select class="form-select" v-model="keySize">
+                    <select class="form-select form-select-sm" v-model="keySize">
                         <option v-for="(key, index) in keySizeArray" :value="key.size">{{key.title}}</option>
                     </select>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col text-center">
-                    <button type="button" class="btn btn-secondary form-control text-nowrap" @click="generateKey">生成密钥</button>
+                    <button type="button" class="btn btn-secondary btn-sm form-control text-nowrap" @click="generateKey">生成密钥</button>
                 </div>
             </div>
         </div>
@@ -34,28 +34,28 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <textarea class="form-control" v-model="privateKey" style="resize:none;color:grey" rows="8"></textarea>
+                    <textarea class="form-control form-control-sm" v-model="privateKey" style="resize:none;color:grey" rows="8"></textarea>
                 </div>
             </div>
         </div>
     </div>
     <div class="row mt-2">
         <div class="col">
-            <button type="button" class="btn btn-primary" @click="encrypt">用公钥加密下面的内容</button>
+            <button type="button" class="btn btn-primary btn-sm" @click="encrypt">用公钥加密下面的内容</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-primary" @click="decrypt">用私钥解密下面的内容</button>
+            <button type="button" class="btn btn-primary btn-sm" @click="decrypt">用私钥解密下面的内容</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-success" @click="sign">用私钥签名下面的内容</button>
+            <button type="button" class="btn btn-success btn-sm" @click="sign">用私钥签名下面的内容</button>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-success" @click="verify">用公钥验签下面的内容</button>
+            <button type="button" class="btn btn-success btn-sm" @click="verify">用公钥验签下面的内容</button>
         </div>
     </div>
     <div class="row mt-2">
         <div class="col">
-            <textarea class="form-control" v-model="content" style="resize:none;" rows="10"></textarea>
+            <textarea class="form-control form-control-sm" v-model="content" style="resize:none;" rows="10"></textarea>
         </div>
     </div>
 
@@ -71,7 +71,7 @@
         
                 <!-- 模态框内容 -->
                 <div class="modal-body">
-                    <select class="form-select" v-model="digest">
+                    <select class="form-select form-select-sm" v-model="digest">
                         <option v-for="(digest, index) in digests" :value="digest.name">{{digest.name}}</option>
                     </select>
                 </div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <textarea class="form-control" v-model="signature" placeholder="请输入签名" id="taSign" ref="taSign" style="resize:none" rows="8"></textarea>
+                            <textarea class="form-control form-control-sm" v-model="signature" placeholder="请输入签名" id="taSign" ref="taSign" style="resize:none" rows="8"></textarea>
                         </div>
                     </div>
                     <div class="row mt-2">
@@ -110,7 +110,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <select class="form-select" v-model="digest">
+                            <select class="form-select form-select-sm" v-model="digest">
                                 <option v-for="(digest, index) in digests" :value="digest.name">{{digest.name}}</option>
                             </select>
                         </div>

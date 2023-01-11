@@ -4,7 +4,7 @@
     <form rolw="form">
         <div class="row pt-2 align-items-center">
             <div class="col-2 text-end">编码：</div>
-            <div class="col-4"><select class="form-select" v-model="encoding" @change="changeEncoding">
+            <div class="col-4"><select class="form-select form-select-sm" v-model="encoding" @change="changeEncoding">
                 <option value="NONE">请选择</option>
                 <option v-for="(item, index) in encodings" :key="index" :value="item.code">{{item.text}}</option>
             </select></div>
@@ -13,14 +13,14 @@
         <div class="row pt-2">
             <div class="col-2 text-end">数据：</div>
             <div class="col-8">
-                <textarea class="form-control" style="resize:none" rows="4" :placeholder="dataMsg" v-model="dataText"></textarea>
+                <textarea class="form-control form-control-sm" style="resize:none" rows="4" :placeholder="dataMsg" v-model="dataText"></textarea>
             </div>
             <div class="col"></div>
         </div>
         <div class="row pt-2 align-items-center">
             <div class="col-2"></div>
             <div class="col-2">
-                <button type="button" class="btn btn-primary" @click="createBarCode">生成条形码</button>
+                <button type="button" class="btn btn-primary btn-sm" @click="createBarCode">生成条形码</button>
             </div>
             <div class="col">点击图片即可下载条形码</div>
         </div>

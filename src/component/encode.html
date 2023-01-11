@@ -2,21 +2,21 @@
 <link rel="stylesheet" href="../index.css">
 <div class="container-fluid" id="app">
     <div class="row pt-2">
-        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strNative" cols="30" rows="10"></textarea></div>
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strNative" cols="30" rows="10"></textarea></div>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-2">
         <div class="col-2">
-            <select class="form-select" v-model="digest" @change="selChange">
+            <select class="form-select form-select-sm" v-model="digest" @change="selChange">
                 <option v-for="(d, i) in digests" :value="d.name">{{d.title}}</option>
             </select>
         </div>
         <div class="col">
-            <button type="button" class="btn btn-primary" @click="encode">编码&nbsp;⇩</button>
-            <button type="button" class="btn btn-primary" style="margin-left:15px;" @click="decode">恢复&nbsp;⇧</button>
+            <button type="button" class="btn btn-primary btn-sm" style="width:100px;" @click="encode">编码&nbsp;⇩</button>
+            <button type="button" class="btn btn-primary btn-sm" style="width:100px; margin-left:15px;" @click="decode">恢复&nbsp;⇧</button>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col"><textarea class="form-control" style="resize:none;" v-model="strCypher" cols="30" rows="10"></textarea></div>
+    <div class="row mt-2">
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strCypher" cols="30" rows="10"></textarea></div>
     </div>
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

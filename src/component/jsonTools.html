@@ -6,16 +6,16 @@
 <div class="container-fluid" id="app">
     <div class="row pt-2">
         <div class="col">
-            <textarea class="form-control txtFont" style="resize:none" rows="20" id="txtJson" v-model="strJson"></textarea>
+            <textarea class="form-control form-control-sm txtFont" style="resize:none" rows="20" id="txtJson" v-model="strJson"></textarea>
         </div>
     </div>
     <div class="row mt-2">
         <div class="col text-end">
-            <button type="button" class="btn btn-primary" @click="format">格式化JSON</button>&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" @click="minify">压缩JSON</button>&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" @click="copy('')">复制结果</button>&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" @click="copy('xml')">复制为xml</button>&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" @click="copy('yaml')">复制为yaml</button>
+            <button type="button" class="btn btn-primary btn-sm" @click="format">格式化JSON</button>&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" @click="minify">压缩JSON</button>&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" @click="copy('')">复制结果</button>&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" @click="copy('xml')">复制为xml</button>&nbsp;&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" @click="copy('yaml')">复制为yaml</button>
         </div>
     </div>
 </div>

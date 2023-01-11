@@ -4,12 +4,12 @@
     <form role="form">
     <div class="row pt-2">
         <div class="col">
-            <input type="file" ref="file" class="form-control">
+            <input type="file" ref="file" class="form-control form-control-sm">
         </div>
     </div>
     <div class="row mt-3">
         <div class="col">
-            <ul class="list-group list-group-horizontal">
+            <ul class="list-group list-group-sm list-group-horizontal list-group-horizontal-sm">
                 <li class="list-group-item" v-for="(d,i) in digests">
                     <label class="form-check-label" :for="d.name"><input type="checkbox" class="form-check-input" v-model="ent" :id="d.name" :value="d.name">&nbsp;{{d.title}}</label>
                 </li>
@@ -18,7 +18,7 @@
     </div>
     <div class="row mt-3">
         <div class="col">
-            <button type="button" class="btn btn-primary" @click="calcu">计算文件的Hash值</button>
+            <button type="button" class="btn btn-primary btn-sm" @click="calcu">计算文件的Hash值</button>
         </div>
     </div>
     </form>
