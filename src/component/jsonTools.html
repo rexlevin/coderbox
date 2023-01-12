@@ -1,15 +1,17 @@
 <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="../index.css">
 <style>
-    .txtFont{font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;; font-size:16px;}
+.txtFont{font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace; font-size:16px;}
+.ta{background-color: white; padding: 0 2px; outline: none; border: 0; margin: 0; height: 100%;}
 </style>
-<div class="container-fluid" id="app">
-    <div class="row pt-2">
-        <div class="col">
-            <textarea class="form-control form-control-sm txtFont" style="resize:none" rows="20" id="txtJson" v-model="strJson"></textarea>
+<div class="container-fluid d-flex flex-column" style="height:100vh;" id="app">
+    <div class="row pt-0" style="flex:1; height:100vh; overflow: auto;">
+        <div class="col p-0">
+            <textarea class="form-control form-control-sm txtFont ta" style="resize:none" id="txtJson" v-model="strJson"></textarea>
+            <!-- <div class="ta" id="txtJson" contenteditable="true">{{strJson}}</div> -->
         </div>
     </div>
-    <div class="row mt-2">
+    <div class="row mt-2 fixed-bottom position-sticky" style="height:62px;">
         <div class="col text-end">
             <button type="button" class="btn btn-primary btn-sm" @click="format">格式化JSON</button>&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-primary btn-sm" @click="minify">压缩JSON</button>&nbsp;&nbsp;&nbsp;
@@ -43,23 +45,35 @@ const app = {
         });
     },
     mounted() {
-        document.querySelector('#txtJson').focus();
-        // document.querySelector('#txtJson').addEventListener('paste', (e) => {
+        let divJson = document.querySelector('#txtJson');
+        divJson.focus();
+        // divJson.addEventListener('paste', (e) => {
         //     e.preventDefault();
         //     // console.info(this.strJson);
-        //     navigator.clipboard.readText().then(text => {
-        //         let content = text;
-        //         let tmp = eval("(" + content + ")");
-        //         // let tmp = eval(content)
-        //         this.strJson = JSON.stringify(tmp, null, 4);
-        //     });
+        //     if(document.getSelection().toString().trim() == divJson.textContent.trim()) {
+        //         console.info('all selected before ctrl+v');
+        //         divJson.innerHTML = '';
+        //         navigator.clipboard.readText().then(text => {
+        //             divJson.textContent = text;
+        //         });
+        //     } else {
+        //         let selection=window.getSelection()
+        //         let range=selection.getRangeAt(0)
+        //         let node = document.createElement("span");
+        //         navigator.clipboard.readText().then(text => {
+        //             node.innerText = text;
+        //             range.insertNode(node);
+        //         });
+        //     }
         // });
     },
     methods: {
         format() {
             this.operation = 'format'
+            // let strJson = document.querySelector('#txtJson').innerText
             let tmp = eval("(" + this.strJson + ")");
-            this.strJson = JSON.stringify(tmp, null, 4);
+            // document.querySelector('#txtJson').innerHTML = '<pre>' + JSON.stringify(tmp, null, 4) + '</pre>';
+            this.strJson = JSON.stringify(tmp, null, 4)
         },
         minify() {
             this.operation = 'minify'
