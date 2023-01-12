@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="../index.css">
-<div class="container-fluid" id="app">
-    <form role="form">
+<div class="container-fluid d-flex flex-column" style="overflow:hidden; height:100vh;" id="app">
+    <div class="container-fluid" style="height:300px;">
         <div class="row pt-4 align-items-center">
             <!-- <div class="col-1"></div> -->
             <div class="col-2 text-end">生成数量</div>
@@ -18,7 +18,7 @@
         <div class="row mt-2 align-items-center">
             <!-- <div class="col-1"></div> -->
             <div class="col-2 text-end">使用字符集</div>
-            <div class="col-1 text-nowrap">
+            <div class="col-2 text-nowrap">
                 <label for="checkNum">
                     <input type="checkbox" v-model="formPwd.checkNum" id="checkNum">&nbsp;数字
                 </label>
@@ -28,7 +28,7 @@
         </div>
         <div class="row mt-2 align-items-center">
             <div class="col-2"></div>
-            <div class="col-1 text-nowrap">
+            <div class="col-2 text-nowrap">
                 <input type="checkbox" v-model="formPwd.checkLower" id="checkLower">&nbsp;<label  class="form-check-label" for="checkLower">小写字母</label>
             </div>
             <div class="col-4"><input type="text" class="form-control form-control-sm" v-model="formPwd.dictLower" @input="checkVal($event, 'lower')"></div>
@@ -36,7 +36,7 @@
         </div>
         <div class="row mt-2 align-items-center">
             <div class="col-2"></div>
-            <div class="col-1 text-nowrap">
+            <div class="col-2 text-nowrap">
                 <input type="checkbox" v-model="formPwd.checkCapital" id="checkCapital">&nbsp;<label  class="form-check-label" for="checkCapital">大写字母</label>
             </div>
             <div class="col-4"><input type="text" class="form-control form-control-sm" v-model="formPwd.dictCapital" @input="checkVal($event, 'capital')"></div>
@@ -44,7 +44,7 @@
         </div>
         <div class="row mt-2 align-items-center">
             <div class="col-2"></div>
-            <div class="col-1 text-nowrap">
+            <div class="col-2 text-nowrap">
                 <input type="checkbox" v-model="formPwd.checkSymbol" id="checkSymbol">&nbsp;<label  class="form-check-label" for="checkSymbol">特殊符号</label>
             </div>
             <div class="col-4"><input type="text" class="form-control form-control-sm" v-model="formPwd.dictSymbol" @input="checkVal($event, 'symbol')"></div>
@@ -56,13 +56,16 @@
                 <button type="button" class="btn btn-primary btn-sm" style="width:100px;" @click="genKey">&nbsp;生&nbsp;&nbsp;成&nbsp;</button>
             </div>
         </div>
-        <div class="row mt-2 align-items-start">
+    </div>
+    <div style="height:100vh;">
+        <div class="row mt-2 align-items-start" style="padding-bottom:80px; height:100%">
             <!-- <div class="col-1"></div> -->
             <div class="col-2 text-end">结果</div>
-            <div class="col-9"><textarea class="form-control form-control-sm" style="resize:none" v-model="formPwd.result" cols="30" rows="10"></textarea></div>
-            <div class="col"></div>
+            <div class="col"><textarea class="form-control form-control-sm" style="resize:none; height:100%;" v-model="formPwd.result"></textarea></div>
+            <!-- <div class="col"></div> -->
         </div>
-    </form>
+    </div>
+    <!-- <div class="container-fluid fixed-bottom position-sticky" style="height:40px;">&nbsp;</div> -->
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
