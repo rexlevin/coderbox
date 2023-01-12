@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="../index.css">
+<style>
+.myLi{cursor:pointer; height:30px; line-height: 30px;}
+.myLi:hover{background-color: gainsboro;}
+</style>
 <div class="container-fluid" id="app">
     <div class="row pt-2">
         <div class="col-6"></div>
@@ -59,13 +63,13 @@ function drawNavigator(selector, routes) {
         li.innerText = route.title
         if(route.type == 'node') {
             li.setAttribute('onclick', 'to(\'' + route.name + '\')');
-            li.style.cursor = 'pointer'
+            li.classList += 'myLi'
             li.id = route.name
         } else if(route.type == 'win') {
             li.addEventListener('click', ()=>{
                 parent.openWindow(route.window, route.title, route.path)
             })
-            li.style.cursor = 'pointer'
+            li.classList += 'myLi'
             li.id = route.name
         } else {
             drawNavigator(li, route.group)
