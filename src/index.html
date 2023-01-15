@@ -5,11 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>coderbox</title>
-    <link rel="stylesheet" href="./index.css">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./index.css">
+    <style>
+        .card{border-radius:0; height:25px; line-height:25px;}
+    </style>
 </head>
 <body>
-    <div id="app" class="h-100" style="overflow:hidden;">
+    <div class="container-fluid d-flex flex-column overflow-hidden h-100 m-0 p-0" id="app" style="overflow:hidden;">
         <nav class="navbar navbar-expand-sm position-absolute" style="height:50px;">
             <div class="collapse navbar-collapse" id="navBar">
                 <!-- <ul class="navbar-nav">
@@ -39,7 +42,7 @@
                 </ul> -->
             </div>
         </nav>
-        <div id="" class="h-100" style="padding-top:50px; margin:0;">
+        <div id="" class="flex-1 h-100" style="padding-top:50px; margin:0;">
             <div class="card bg-light text-gray" v-if="see">
                 <div class="card-head text-muted">{{title}}</div>
             </div>
