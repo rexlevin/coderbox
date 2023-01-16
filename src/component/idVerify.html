@@ -1,13 +1,62 @@
-<link rel="stylesheet" href="../index.css">
 <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-<div class="container-fluid" id="app">
-    <div class="container-fliud" style="height:300px;"></div>
+<link rel="stylesheet" href="../index.css">
+<div class="container-fluid d-flex flex-column overflow-hidden" style="height:100vh;" id="app">
+    <div class="container-fliud" style="height:300px;">
+        <div class="row pt-4">
+            <div class="col-1">&nbsp;</div>
+            <div class="col">
+                <div class="input-group text-center" style="width:350px;">
+                    <input type="text" class="form-control form-control-sm" v-model="idCard" style="width:200px;" placeholder="18位身份证号码">
+                    <button class="btn btn-success btn-sm" style="width:100px;" @click="checkIdCard">验&nbsp;&nbsp;证</button> 
+                </div>
+            </div>
+            <div class="col-1">&nbsp;</div>
+        </div>
+        <div class="row" style="padding-top:20px;">
+            <div class="col-1">&nbsp;</div>
+            <div class="col">
+                <table class="table table-border">
+                    <tbody>
+                        <tr>
+                            <td>归属地</td>
+                            <td>{{area}}</td>
+                        </tr>
+                        <tr>
+                            <td>生日</td>
+                            <td>{{birthday}}</td>
+                        </tr>
+                        <tr>
+                            <td>性别</td>
+                            <td>{{gender}}</td>
+                        </tr>
+                        <tr>
+                            <td>年龄</td>
+                            <td>{{age}}</td>
+                        </tr>
+                        <tr>
+                            <td>校验结果</td>
+                            <td>{{result}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-1">&nbsp;</div>
+        </div>
+    </div>
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
 <script>
 const app = {
     data() {
+        return {
+            idCard: '',
+            area: '',
+            birthday: '',
+            gender: '',
+            age: '',
+            result: ''
+        }
     },
     created() {
         document.addEventListener('keyup', (e) => {
@@ -20,6 +69,9 @@ const app = {
         });
     },
     methods: {
+        checkIdCard() {
+            console.info('当前身份证号=====%s', this.idCard);
+        }
     }
 }
 Vue.createApp(app).mount('#app');
