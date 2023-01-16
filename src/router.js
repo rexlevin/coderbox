@@ -19,5 +19,9 @@ const routes = [
         { type: 'node', name: 'urlencode', title: 'Url编码', path: './component/urlencode.html', state: 0 }
     ] },
     {type: 'node', name: 'jsonTools', title: 'JSON工具', path: './component/jsonTools.html', state: 0},
+    { type: 'group', name: '', title: '身份证', group: [
+        {type: 'node', name: 'idGenerator', title: '身份证生成器', path: './component/idGenerator.html', state: 0},
+        { type: 'node', name: 'idVerify', title: '身份证校验', path: './component/idVerify.html', state: 0}
+    ]},
     {type: 'win', name: 'http', title: 'HTTP请求工具', window: 'windowHttp', path: './component/http/http.html', state: 0}
 ]

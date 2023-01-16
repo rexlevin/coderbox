@@ -46,6 +46,12 @@
 
   - [x] JSON压缩
 
+- [] 身份证工具
+
+  - [x] 身份证生成器
+
+  - [ ] 身份证校验
+
 - [x] HTTP请求工具
 
 # 开发
@@ -79,6 +85,7 @@ npm i vue bootstrap@5 @popperjs/core crypto-js jsbarcode qrcode jsencrypt
 | qrcode                        | 二维码                                        |
 | jsencrypt                     | RSA加解密                                     |
 | x2js                          | xml、json互转                                 |
+| air-datepicker                | 一个轻量化、无依赖的日期/事件选择器           |
 
 # 发行版打包
 

@@ -1,0 +1,151 @@
+<link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../node_modules/air-datepicker/air-datepicker.css">
+<link rel="stylesheet" href="../index.css">
+<div class="container-fluid d-flex flex-column overflow-hidden" style="height:100vh;" id="app">
+    <div class="container-fliud" style="height:230px;">
+        <div class="row pt-3 align-items-center">
+            <!-- <div class="col-1"></div> -->
+            <div class="col-2 text-end text-nowrap">出生地</div>
+            <div class="col">
+                <select class="form-control form-control-sm" id="province" style="width:150px; display: inline-block;"></select>
+                <select class="form-control form-control-sm" id="city" style="width:150px; display: inline-block; margin-left:4px;"></select>
+                <select class="form-control form-control-sm" id="district" style="width:150px; display: inline-block;margin-left:4px;"></select>
+            </div>
+            <!-- <div class="col">&nbsp;</div> -->
+        </div>
+        <div class="row pt-3 align-items-center">
+            <!-- <div class="col-1"></div> -->
+            <div class="col-2 text-nowrap text-end">性别</div>
+            <div class="col">
+                <div class="form-check form-check-inline" style="float:left; width:50px;">
+                    <input class="form-check-input" type="radio" name="gender" value="1" v-model="gender" id="male"><label class="form-check-label" style="margin-top:4px;" for="male">男</label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-left:20px;">
+                    <input class="form-check-input" type="radio" name="gender" value="0" v-model="gender" id="female"><label class="form-check-label" style="margin-top:4px;" for="female">女</label>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3 align-items-center">
+            <!-- <div class="col-1"></div> -->
+            <div class="col-2 text-end text-nowrap">出生日期</div>
+            <div class="col">
+                <input id="myDatePicker" class="form-control form-control-sm" style="width:250px;">
+            </div>
+        </div>
+        <div class="row align-items-center" style="padding-top:10px;">
+            <!-- <div class="col-1"></div> -->
+            <div class="col-2 text-nowrap text-end">生成数量</div>
+            <div class="col">
+                <input class="form-control form-control-sm" style="width:250px;" type="number" v-model="genCount" @input="checkGenCount($event)">
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-2">&nbsp;</div>
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-sm" style="width:100px;" @click="generate">&nbsp;生&nbsp;&nbsp;成&nbsp;</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fliud" style="padding-top:10px; height:100vh;">
+        <div class="row" style="height:100%; padding-bottom:40px;">
+            <div class="col">
+                <textarea class="form-control form-control-sm" readonly v-model="result" style="resize:none; height:100%; font-size:20px;"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<!-- <script src="../lib/date.picker.js"></script> -->
+<script src="../../node_modules/air-datepicker/air-datepicker.js"></script>
+<script src="../lib/area.picker.js"></script>
+<script>
+const app = {
+    data() {
+        return {
+            genCount: 5,
+            province: '',
+            city: '',
+            district: '',
+            gender: 1,
+            birthday: '1990-01-01',
+            result: ''
+        }
+    },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
+    },
+    mounted() {
+        new AirDatepicker('#myDatePicker', {
+            inline: false,
+            selectedDates: [new Date(this.birthday)],
+            dateFormat: 'yyyy-MM-dd'
+        })
+        new AreaPicker()
+    },
+    methods: {
+        checkGenCount(e) {
+            if(e.target.value < 1) {
+                this.genCount = 1;
+            }
+        },
+        generate() {
+            this.province = document.querySelector('#province').value;
+            this.city = document.querySelector('#city').value;
+            this.district = document.querySelector('#district').value;
+            this.birthday = document.querySelector('#myDatePicker').value;
+            // console.info('%s==%s==%s==%s==%s==%s', this.genCount, this.province, this.city, this.district, this.gender, this.birthday);
+            
+            let areaCode = this.district
+                , birthdayCode = this.birthday.split('-').join('')
+                , sortCode = ''
+                , numSet = new Set();
+            // console.info('%s====%s', areaCode, birthdayCode)
+            while(true) {
+                let r = Math.floor(Math.random() * 900);
+                if('1' == this.gender && r % 2 == 0) {
+                    continue;
+                }
+                if('0' == this.gender && r %2 == 1) {
+                    continue;
+                }
+                numSet.add(r);
+                if(numSet.size >= this.genCount) break;
+            }
+            // console.info(numSet);
+
+            let idArr = new Array()
+                , numArr = Array.from(numSet);
+            for(let i = 0; i < numSet.size; i++) {
+                idArr.push(areaCode + birthdayCode + ('00000' + numArr[i]).slice(-3))
+                // console.info(areaCode + birthdayCode + ('00000' + numArr[i]).slice(-3))
+            }
+
+            for(let i = 0; i < idArr.length; i++) {
+                idArr[i] = idArr[i] + this.calculateCode(idArr[i])
+                // console.info(idArr[i])
+            }
+
+            this.result = idArr.join('\r\n')
+        },
+        calculateCode(idNum) {
+            let coefficient = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+            // 除11取余的结果对应的校验位（最后一位）的值
+            let checkDigitMap = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+            var sum = 0;
+            for (var i = 0; i < 17; i++) {
+                sum += idNum[i] * coefficient[i];
+            }
+            return checkDigitMap[sum % 11];
+        }
+    }
+}
+Vue.createApp(app).mount('#app');
+</script>
