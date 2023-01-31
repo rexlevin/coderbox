@@ -28,15 +28,15 @@ const createWindow = () => {
     let isMax = store.get('isMax') ? true : false
         , position = store.get('mainPosition')
         , config = {};
-    if(!isMax && !('' == position || undefined == position)) {
-        config.width = position.width;
-        config.height = position.height;
-        config.x = position.x;
-        config.y = position.y;
-    } else if(!isMax && ('' == position || undefined == position)) {
-        config.width = 900;
-        config.height = 700;
-    }
+    // if(!isMax && !('' == position || undefined == position)) {
+    //     config.width = position.width;
+    //     config.height = position.height;
+    //     config.x = position.x;
+    //     config.y = position.y;
+    // } else if(!isMax && ('' == position || undefined == position)) {
+    //     config.width = 900;
+    //     config.height = 700;
+    // }
     config.minWidth = 900;
     config.minHeight = 700;
     config.icon = path.join(__dirname, './src/logo.png');
@@ -55,9 +55,9 @@ const createWindow = () => {
     
     // 启动恢复主窗口位置和大小
     // let position = store.get('mainPosition')
-    // if(!('' == position || undefined == position)) {
-    //     win.setContentBounds(position)
-    // }
+    if(!isMax && !('' == position || undefined == position)) {
+        win.setContentBounds(position)
+    }
 
     // 关闭主窗口事件，记录窗口大小和位置
     win.on('close', (e) => {
