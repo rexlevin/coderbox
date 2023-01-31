@@ -2,12 +2,14 @@
 <link rel="stylesheet" href="../index.css">
 <style>
 .nav {min-height:30px;}
-.nav>li>a {height:30px; padding-top:4px; font-size:16px;}
+.nav-tabs .nav-link{border-radius: 0;}
+.nav>li>a {height:30px; line-height: 30px; padding-top:2px; font-size:16px;}
 </style>
 <div class="container-fluid" id="app">
     <div class="row pt-2">
         <div class="col-6">
             <div class="row">
+                <!-- <div class="col-1">&nbsp;</div> -->
                 <div class="col">
                     <ul class="nav nav-tabs" id="myTab">
                         <li v-for="(type, index) in types" class="nav-item">
@@ -16,7 +18,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="row pt-1">
+            <div class="row">
+                <!-- <div class="col-1">&nbsp;</div> -->
                 <div class="col">
                     <div class="tab-content">
                         <div class="tab-pane fade" id="text">

@@ -17,7 +17,16 @@ const app = {
             myResponse: {title: 'Response'}
         }
     },
-    created() {},
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key ==  'i')) {
+                parent.devTools();
+            }
+            if (e.ctrlKey && (e.key == 'r' || e.key == 'R')) {
+                parent.refresh();
+            }
+        });
+    },
     mounted() {
         // console.info(this.headers.length)
         // if(0 === this.headers.length) {
