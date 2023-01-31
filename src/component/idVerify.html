@@ -29,10 +29,10 @@
                             <td>性别</td>
                             <td>{{gender}}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>年龄</td>
                             <td>{{age}}</td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td>校验结果</td>
                             <td>{{result}}</td>
@@ -46,6 +46,8 @@
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../../node_modules/vue/dist/vue.global.prod.js"></script>
+<script src="../lib/area.js"></script>
+<script src="../lib/idcard.verify.js"></script>
 <script>
 const app = {
     data() {
@@ -71,6 +73,17 @@ const app = {
     methods: {
         checkIdCard() {
             console.info('当前身份证号=====%s', this.idCard);
+            let idc = new IDCard();
+            let ret = idc.verify(this.idCard);
+            console.info(ret)
+            if(!ret.result) {
+                alert(ret.msg)
+                return;
+            }
+            this.area = ret.p + ' ' + ret.c + ' ' + ret.d;
+            this.birthday = ret.bd;
+            this.gender = ret.g;
+            this.result = '校验位正确'
         }
     }
 }
