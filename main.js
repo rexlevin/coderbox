@@ -28,15 +28,6 @@ const createWindow = () => {
     let isMax = store.get('isMax') ? true : false
         , position = store.get('mainPosition')
         , config = {};
-    // if(!isMax && !('' == position || undefined == position)) {
-    //     config.width = position.width;
-    //     config.height = position.height;
-    //     config.x = position.x;
-    //     config.y = position.y;
-    // } else if(!isMax && ('' == position || undefined == position)) {
-    //     config.width = 900;
-    //     config.height = 700;
-    // }
     config.minWidth = 900;
     config.minHeight = 700;
     config.icon = path.join(__dirname, './src/logo.png');
@@ -45,6 +36,7 @@ const createWindow = () => {
         spellcheck: false
     }
     config.useContentSize = true;
+    config.show = false;
 
     win = new BrowserWindow(config);
     if(isMax) win.maximize();
@@ -58,6 +50,10 @@ const createWindow = () => {
     if(!isMax && !('' == position || undefined == position)) {
         win.setContentBounds(position)
     }
+
+    win.on('ready-to-show', ()=>{
+        win.show();
+    });
 
     // 关闭主窗口事件，记录窗口大小和位置
     win.on('close', (e) => {
