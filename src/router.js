@@ -23,5 +23,5 @@ const routes = [
         {type: 'node', name: 'idGenerator', title: '身份证生成器', path: './component/idGenerator.html', state: 0},
         { type: 'node', name: 'idVerify', title: '身份证校验', path: './component/idVerify.html', state: 0}
     ]},
-    {type: 'win', name: 'http', title: 'HTTP请求工具', window: 'windowHttp', path: './component/http/http.html', state: 0}
+    // {type: 'win', name: 'http', title: 'HTTP请求工具', window: 'windowHttp', path: './component/http/http.html', state: 0},  // 删掉 http 工具，以后抽时间做一个专门的吧
 ]
