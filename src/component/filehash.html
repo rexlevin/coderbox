@@ -11,7 +11,7 @@
         <div class="col">
             <ul class="list-group list-group-sm list-group-horizontal list-group-horizontal-sm">
                 <li class="list-group-item" v-for="(d,i) in digests">
-                    <label class="form-check-label" :for="d.name"><input type="checkbox" class="form-check-input" v-model="ent" :id="d.name" :value="d.name">&nbsp;{{d.title}}</label>
+                    <label :for="d.name"><input type="checkbox" v-model="ent" :id="d.name" :value="d.name">&nbsp;{{d.title}}</label>
                 </li>
             </ul>
         </div>
