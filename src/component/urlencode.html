@@ -1,30 +1,24 @@
 <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="./../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 <link rel="stylesheet" href="../index.css">
 <div class="container-fluid" id="app">
     <div class="row pt-2">
-        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strUrl" rows="6" placeholder="请输入url"></textarea></div>
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strUrl" rows="12" placeholder="请输入url"></textarea></div>
     </div>
     <div class="row mt-3">
         <div class="col text-center">
             <button type="button" class="btn btn-secondary btn-sm" @click="clear">全部清空</button>&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary btn-sm" @click="encode">URL编码</button>
+            <button type="button" class="btn btn-primary btn-sm" @click="encode"><i class="bi bi-arrow-down"></i>&nbsp;URL编码</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" @click="decode"><i class="bi bi-arrow-up"></i>&nbsp;URL解码</button>
         </div>
     </div>
     <div class="row mt-2">
         <div class="col">
-            <label>encodeURI:</label>
+            <label>encodeURI</label>
         </div>
     </div>
     <div class="row">
-        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strEncode" rows="5"></textarea></div>
-    </div>
-    <div class="row mt-2">
-        <div class="col">
-            <label>encodeURIComponent：:</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strEncodeCom" rows="5"></textarea></div>
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strEncode" rows="12"></textarea></div>
     </div>
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -34,8 +28,7 @@ const app = {
     data() {
         return {
             strUrl: '',
-            strEncode: '',
-            strEncodeCom: ''
+            strEncode: ''
         }
     },
     created() {
@@ -50,20 +43,21 @@ const app = {
     },
     methods: {
         encode() {
-            try {
-                new URL(this.strUrl)
-            } catch (error) {
-                console.error(error);
-                alert('不正确的URL')
-                return;
-            }
+            // try {
+            //     new URL(this.strUrl)
+            // } catch (error) {
+            //     console.error(error);
+            //     alert('不正确的URL')
+            //     return;
+            // }
             this.strEncode = encodeURI(this.strUrl)
-            this.strEncodeCom = encodeURIComponent(this.strUrl)
+        },
+        decode() {
+            this.strUrl = decodeURI(this.strEncode)
         },
         clear() {
             this.strUrl = '';
             this.strEncode = '';
-            this.strEncodeCom = '';
         }
     }
 }
