@@ -52,6 +52,12 @@
 
   - [x] 身份证校验
 
+- [ ]  WEB 工具
+
+  - [ ] FTP 服务
+
+  - [ ] HTTP 服务
+
 # 开发
 
 ```bash
@@ -149,7 +155,3 @@ npm run build-dist:win
 ## JSON解析
 
 ![image-20221028113905518](https://imgbd.r-xnoro.com//image-20221028113905518.png)
-
-## HTTP请求工具
-
-![image-20221113203033459](https://imgbd.r-xnoro.com//image-20221113203033459.png)

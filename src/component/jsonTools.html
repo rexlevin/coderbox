@@ -4,8 +4,8 @@
 .txtFont{font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace; font-size:16px;}
 .ta{background-color: white; padding: 0 2px; outline: none; border: 0; margin: 0; height: 100%;}
 </style>
-<div class="container-fluid d-flex flex-column" style="height:100vh;" id="app">
-    <div class="row pt-0" style="flex:1; height:100vh; overflow: auto;">
+<div class="container-fluid d-flex flex-column w-100" style="overflow:hidden; height:100vh; padding-top:12px;" id="app">
+    <div class="row" style="flex:1; height:100vh; overflow:hidden;">
         <div class="col p-0">
             <textarea class="form-control form-control-sm txtFont ta" style="resize:none" id="txtJson" v-model="strJson"></textarea>
             <!-- <div class="ta" id="txtJson" contenteditable="true">{{strJson}}</div> -->

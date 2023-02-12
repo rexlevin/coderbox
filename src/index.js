@@ -1,13 +1,3 @@
-// const routes = [
-//     { name: 'welcome', title: '首页', path: './component/welcome.html', state: 0 },
-//     { name: 'pwd', title: '随机数/密码生成', path: './component/pwd.html', state: 0 },
-//     { name: 'ascii', title: '中文/ASCii互转', path: './component/ascii.html', state: 0 },
-//     { name: 'utf8', title: '中文/UTF-8编码互转', path: './component/utf8.html', state: 0 },
-//     { name: 'base64', title: 'Base64编码/解码', path: './component/base64.html', state: 0 },
-//     { name: 'barcode', title: '条形码', path: './component/barcode.html', state: 0 },
-//     { name: 'qrcode', title: '二维码', path: './component/qrcode.html', state: 0 }
-// ]
-
 const app = {
     data() {
         return {

@@ -59,6 +59,7 @@ function drawNavigator(selector, routes) {
     let ul = document.createElement('ul')
     // ul.className += 'list-unstyled'
     for(let route of routes) {
+        if('welcome' == route.name) continue;
         let li = document.createElement('li')
         li.innerText = route.title
         if(route.type == 'node') {
