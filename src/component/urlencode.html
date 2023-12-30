@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="../index.css">
 <div class="container-fluid" id="app">
     <div class="row pt-2">
-        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strUrl" rows="12" placeholder="请输入url"></textarea></div>
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strUrl" rows="7" placeholder="请输入url"></textarea></div>
     </div>
     <div class="row mt-3">
         <div class="col text-center">
@@ -18,7 +18,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strEncode" rows="12"></textarea></div>
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strEncode" rows="7"></textarea></div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <label>encodeURIComponent</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col"><textarea class="form-control form-control-sm" style="resize:none;" v-model="strEncodeComponent" rows="7"></textarea></div>
     </div>
 </div>
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -28,7 +36,8 @@ const app = {
     data() {
         return {
             strUrl: '',
-            strEncode: ''
+            strEncode: '',
+            strEncodeComponent: ''
         }
     },
     created() {
@@ -50,14 +59,24 @@ const app = {
             //     alert('不正确的URL')
             //     return;
             // }
-            this.strEncode = encodeURI(this.strUrl)
+            this.strEncode = encodeURI(this.strUrl);
+            this.strEncodeComponent = encodeURIComponent(this.strUrl);
         },
         decode() {
-            this.strUrl = decodeURI(this.strEncode)
+            if(this.strEncode != '') {
+                this.strUrl = decodeURI(this.strEncode)
+                this.strEncodeComponent = encodeURIComponent(this.strUrl);
+            } else if(this.strEncodeComponent != '') {
+                this.strUrl = decodeURIComponent(this.strEncodeComponent);
+                this.strEncode = encodeURI(this.strUrl);
+            } else {
+                this.strUrl = '';
+            }
         },
         clear() {
             this.strUrl = '';
             this.strEncode = '';
+            this.strEncodeComponent = '';
         }
     }
 }
