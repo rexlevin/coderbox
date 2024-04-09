@@ -8,3 +8,4 @@ src/lib/*
 !src/lib/json.yaml.js
 !src/lib/json.minify.js
 !src/lib/area.picker.js
+!src/lib/idcard.verify.js
