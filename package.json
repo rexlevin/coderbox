@@ -1,61 +1,61 @@
 {
-  "name": "coderbox",
-  "version": "1.6.3",
-  "description": "基于electron的跨平台的程序员小工具集",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "build-dist:linux": "electron-builder -l",
-    "build-dist:win": "electron-builder -w"
-  },
-  "build": {
-    "appId": "com.lizl6.coderbox",
-    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
-    "asar": true,
-    "directories": {
-      "output": "./dist"
+    "name": "coderbox",
+    "version": "1.7.0",
+    "description": "基于electron的跨平台的程序员小工具集",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "build-dist:linux": "electron-builder -l",
+        "build-dist:win": "electron-builder -w"
     },
-    "linux": {
-      "target": [
-        "appimage"
-      ]
+    "build": {
+        "appId": "com.lizl6.coderbox",
+        "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+        "asar": true,
+        "directories": {
+            "output": "./dist"
+        },
+        "linux": {
+            "target": [
+                "appimage"
+            ]
+        },
+        "win": {
+            "icon": "./src/logo.png",
+            "target": [
+                "nsis"
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "perMachine": false,
+            "allowElevation": true,
+            "shortcutName": "CoderBox工具箱"
+        }
     },
-    "win": {
-      "icon": "./src/logo.png",
-      "target": [
-        "nsis"
-      ]
+    "keywords": [
+        "coderbox",
+        "加密",
+        "编码",
+        "base64"
+    ],
+    "author": "lizl6",
+    "license": "Apache-2.0",
+    "devDependencies": {
+        "electron": "^20.1.0"
     },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": false,
-      "allowElevation": true,
-      "shortcutName": "CoderBox工具箱"
+    "dependencies": {
+        "@popperjs/core": "^2.11.6",
+        "air-datepicker": "^3.3.4",
+        "axios": "^1.1.3",
+        "bootstrap": "^5.2.0",
+        "bootstrap-icons": "^1.9.1",
+        "crypto-js": "^4.1.1",
+        "electron-store": "^8.1.0",
+        "jsbarcode": "^3.11.5",
+        "jsencrypt": "^3.2.1",
+        "qrcode": "^1.5.1",
+        "vue": "^3.2.38",
+        "x2js": "^3.4.3"
     }
-  },
-  "keywords": [
-    "coderbox",
-    "加密",
-    "编码",
-    "base64"
-  ],
-  "author": "lizl6",
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "electron": "^20.1.0"
-  },
-  "dependencies": {
-    "@popperjs/core": "^2.11.6",
-    "air-datepicker": "^3.3.4",
-    "axios": "^1.1.3",
-    "bootstrap": "^5.2.0",
-    "bootstrap-icons": "^1.9.1",
-    "crypto-js": "^4.1.1",
-    "electron-store": "^8.1.0",
-    "jsbarcode": "^3.11.5",
-    "jsencrypt": "^3.2.1",
-    "qrcode": "^1.5.1",
-    "vue": "^3.2.38",
-    "x2js": "^3.4.3"
-  }
 }
